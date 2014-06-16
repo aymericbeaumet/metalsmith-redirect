@@ -80,6 +80,10 @@ object is what is resolved by the plugin.
 
 ## Changelog
 
+* 0.0.2
+  * Automatic NPM deployment from Travis
+  * Fix the normalize.relativeTo() method
+
 * 0.0.1
   * Internal redirections (both absolute and relative)
   * External redirections (toward other websites)
