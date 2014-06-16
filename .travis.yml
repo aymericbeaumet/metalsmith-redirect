@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+- '0.10'
+
+before_install:
+- npm install -g npm
+
+install:
+- npm install
+- cd ./example && npm install && cd -
+
+script:
+- node ./node_modules/mocha/bin/mocha
+- cd example && node ./build.js && cd -
+
+deploy:
+  provider: npm
+  email: aymeric@beaumet.me
+  api_key:
+    secure: k7JxMJKnxtZEzaBLZM1xkdMpoZJhDUDb7YoiR0hWySx3Er3w5Xg1XqVNRgktzawjNgx625aJLzBrQn4tXVoQWqDboE2i4XDk1Le5Puo2T1p+/xqturPE8LVqt5lbn0gBiSvMLgfbm4WEaM1iJh0mV9IdmQyqVD+L2raYvjxgrPI=
+  on:
+    repo: aymericbeaumet/metalsmith-redirect
+    branch: master
+    tags: true
