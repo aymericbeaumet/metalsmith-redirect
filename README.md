@@ -31,7 +31,7 @@ var redirect = require('metalsmith-redirect');
 Metalsmith(__dirname)
   .use(redirect({
     '/foo': '/img/foo.png',
-    '/bar.html': '/img/
+    '/bar.html': '/img/'
   }));
 ```
 
