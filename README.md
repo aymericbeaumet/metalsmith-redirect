@@ -81,7 +81,8 @@ object is what is resolved by the plugin.
 ## Changelog
 
 * 0.0.1
-  *
+  * Internal redirections (../ and /)
+  * External redirections (http(s)://...)
 
 ## License
 
