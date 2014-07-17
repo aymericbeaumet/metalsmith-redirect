@@ -80,6 +80,9 @@ object is what is resolved by the plugin.
 
 ## Changelog
 
+* 0.0.3
+  * Now use `rel=canonical` in the redirection template
+
 * 0.0.2
   * Automatic NPM deployment from Travis
   * Fix the normalize.relativeTo() method
