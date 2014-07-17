@@ -2,6 +2,7 @@ html
   head
     meta(charset='utf-8')
     meta(http-equiv='refresh' content='1;url=#{destination}')
+    link(rel='canonical' href=destination)
     script.
       window.location.replace('#{destination}');
   body
