@@ -63,13 +63,13 @@ object is what is resolved by the plugin.
 
 ```javascript
 { '/foo/bar.html': 'baz' }
-{ '/foo/bar.html': '/foo/baz/index.html' }
+{ '/foo/bar.html': '/foo/baz' }
 ```
 
 ```javascript
 // It is possible to do external redirections.
 { '/github': 'https://github.com/segmentio' }
-{ '/github/index.html': 'https://github.com/segmentio/index.html' }
+{ '/github/index.html': 'https://github.com/segmentio' }
 ```
 
 ```javascript
