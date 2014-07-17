@@ -20,5 +20,5 @@ deploy:
     secure: PAVLA1+st7EoijWC6s1w53BUsaG+34ExU2CqTFScIpvqC2JaP25MGsm2ASsq0bdP8MeehPP4SJoMTg/xzbU8PDitAb2TkE4pOllHEtEsCcXcNwWcihPXcjbuKOOPd0Xhy4JFRKve4nCQoaIjbsew77I6FFwIhc/bn2CbWvYDRwc=
   on:
     repo: aymericbeaumet/metalsmith-redirect
-    branch: master
+    all_branches: true
     tags: true
