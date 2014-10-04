@@ -80,6 +80,9 @@ object is what is resolved by the plugin.
 
 ## Changelog
 
+* 1.0.0
+  * Bump stable
+
 * 0.0.3
   * Now use `rel=canonical` in the redirection template
 
