@@ -80,6 +80,9 @@ object is what is resolved by the plugin.
 
 ## Changelog
 
+* 1.0.1
+  * Strip leading slash to support latest Metalsmith major release (`1.0.0`)
+
 * 1.0.0
   * Bump stable
 
