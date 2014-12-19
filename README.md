@@ -1,4 +1,4 @@
-# metalsmith-redirect [![Build Status](https://travis-ci.org/aymericbeaumet/metalsmith-redirect.svg?branch=master)](https://travis-ci.org/aymericbeaumet/metalsmith-redirect) [![NPM version](https://badge.fury.io/js/metalsmith-redirect.svg)](http://badge.fury.io/js/metalsmith-redirect)
+# metalsmith-redirect [![Build Status](https://img.shields.io/travis/aymericbeaumet/metalsmith-redirect.svg?style=flat)](https://travis-ci.org/aymericbeaumet/metalsmith-redirect) [![NPM version](https://img.shields.io/npm/v/metalsmith-redirect.svg?style=flat)](http://badge.fury.io/js/metalsmith-redirect)
 
 A Metalsmith plugin to create HTTP redirections.
 
