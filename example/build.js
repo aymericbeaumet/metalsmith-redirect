@@ -1,3 +1,5 @@
+'use strict';
+
 var Metalsmith = require('metalsmith');
 var redirect = require('../lib'); // require('metalsmith-redirect');
 
