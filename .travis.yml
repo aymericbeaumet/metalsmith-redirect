@@ -1,24 +1,21 @@
 language: node_js
 node_js:
 - '0.10'
-
+- '0.12'
 before_install:
 - npm install -g npm
-
 install:
 - npm install
 - cd ./example && npm install && cd -
-
 script:
-- node ./node_modules/mocha/bin/mocha
+- npm test
 - cd example && node ./build.js && cd -
-
 deploy:
   provider: npm
   email: aymeric@beaumet.me
   api_key:
-    secure: PAVLA1+st7EoijWC6s1w53BUsaG+34ExU2CqTFScIpvqC2JaP25MGsm2ASsq0bdP8MeehPP4SJoMTg/xzbU8PDitAb2TkE4pOllHEtEsCcXcNwWcihPXcjbuKOOPd0Xhy4JFRKve4nCQoaIjbsew77I6FFwIhc/bn2CbWvYDRwc=
+    secure: NsrKXS5r+zjfCq1Mv4kyFUh3rpHIv/JcghTfUdrnII0RzQJbK0lbYcyd0sel3W63hxITSm6rsCHNzMW55+yozFmPwzz2pQEzsvm6/oMo0LrN87O1OuHVciW7C6dqtHwEaY+3fPG5rc2KuZhWIxRS0ZRr1rKFMFkGHw0MJsa/QSg=
   on:
     repo: aymericbeaumet/metalsmith-redirect
-    all_branches: true
+    branch: master
     tags: true
