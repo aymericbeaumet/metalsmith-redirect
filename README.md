@@ -80,6 +80,12 @@ object is what is resolved by the plugin.
 
 ## Changelog
 
+* 1.1.0
+  * `jade@1.11.0`
+  * `metalsmith@1.7.0`
+  * `metalsmith-templates@0.7.0`
+  * `underscore@1.8.3`
+
 * 1.0.2
   * The Jade template now produces valid HTML (the doctype was missing)
 
