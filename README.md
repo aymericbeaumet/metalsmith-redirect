@@ -80,6 +80,9 @@ object is what is resolved by the plugin.
 
 ## Changelog
 
+* 1.2.0
+  * HTML meta redirection occurs immediately
+
 * 1.1.0
   * `jade@1.11.0`
   * `metalsmith@1.7.0`
