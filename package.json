@@ -1,33 +1,25 @@
 {
   "name": "metalsmith-redirect",
   "version": "1.2.0",
-  "description": "A Metalsmith plugin to create HTTP redirections.",
-  "main": "lib/index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/aymericbeaumet/metalsmith-redirect.git"
-  },
+  "description": "A Metalsmith plugin to create HTTP redirections",
   "keywords": [
     "metalsmith",
     "plugin"
   ],
-  "author": "Aymeric Beaumet <aymeric@beaumet.me> (http://beaumet.me/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/aymericbeaumet/metalsmith-redirect/issues"
-  },
-  "homepage": "https://github.com/aymericbeaumet/metalsmith-redirect",
-  "devDependencies": {
-    "mocha": "~2.2.5",
-    "chai": "~3.2.0"
-  },
+  "author": "Aymeric Beaumet <aymeric@beaumet.me>",
+  "license": "CC0-1.0",
+  "main": "lib",
   "dependencies": {
-    "jade": "~1.11.0"
+    "jade": "1.11.0"
+  },
+  "devDependencies": {
+    "codeclimate-test-reporter": "0.3.1",
+    "istanbul": "0.4.2",
+    "standard": "6.0.8",
+    "tape": "4.5.1"
+  },
+  "scripts": {
+    "test": "standard && istanbul cover node_modules/.bin/tape -- 'test/**/*.js' && istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100",
+    "codeclimate": "codeclimate-test-reporter < coverage/lcov.info"
   }
 }

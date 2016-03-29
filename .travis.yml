@@ -1,21 +1,25 @@
 language: node_js
 node_js:
-- '0.10'
-- '0.12'
-before_install:
-- npm install -g npm
+  - 4
+  - 5
+
 install:
-- npm install
-- cd ./example && npm install && cd -
+  - npm install
+  - pushd example && npm install && popd
+
 script:
-- npm test
-- cd example && node ./build.js && cd -
-deploy:
-  provider: npm
-  email: aymeric@beaumet.me
-  api_key:
-    secure: NsrKXS5r+zjfCq1Mv4kyFUh3rpHIv/JcghTfUdrnII0RzQJbK0lbYcyd0sel3W63hxITSm6rsCHNzMW55+yozFmPwzz2pQEzsvm6/oMo0LrN87O1OuHVciW7C6dqtHwEaY+3fPG5rc2KuZhWIxRS0ZRr1rKFMFkGHw0MJsa/QSg=
-  on:
-    repo: aymericbeaumet/metalsmith-redirect
-    branch: master
-    tags: true
+  - node --version && npm --version
+  - npm test
+  - pushd example && node build.js && popd
+
+after_success:
+  - npm run codeclimate
+
+###
+
+addons:
+  code_climate:
+    repo_token:
+      secure: oBSd83e4ZR44kMVxk5c1RJvHjrkZutT1dEYpvdT6F2VyPpmcpMBfqsScDFplRgr/gUT32exAge0DKgE0+5kiM/k+KY5maHRm8HFpKasHZJJUBl1b1epAqUCM69yto+4pgazKtD4Ow/fDZwuXpZCCRICvXRYWME9k0UCXI9HUIHA=
+
+sudo: false
