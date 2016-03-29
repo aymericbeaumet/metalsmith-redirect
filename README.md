@@ -88,6 +88,9 @@ object is what is resolved by the plugin.
 
 ## Changelog
 
+* 1.3.1
+  * Lightweight npm-shrinkwrap
+
 * 1.3.0
   * Bump dependencies
 
