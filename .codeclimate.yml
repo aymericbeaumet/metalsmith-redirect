@@ -11,13 +11,13 @@ engines:
   nodesecurity:
     enabled: true
 
+exclude_paths:
+  - example*/**/*
+  - node_modules/**/*
+  - test/**/*
+
 ratings:
   paths:
     - "**.es6"
     - "**.js"
     - "**.jsx"
-
-exclude_paths:
-- example*/**/*
-- node_modules/**/*
-- test/**/*
