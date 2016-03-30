@@ -19,7 +19,7 @@
     "tape": "4.5.1"
   },
   "scripts": {
-    "test": "standard && istanbul cover node_modules/.bin/tape -- 'test/**/*.js' && istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100",
+    "test": "standard && istanbul cover node_modules/tape/bin/tape -- 'test/**/*.js' && istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100",
     "codeclimate": "codeclimate-test-reporter < coverage/lcov.info"
   }
 }
