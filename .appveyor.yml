@@ -17,8 +17,6 @@ test_script:
 build: off
 
 cache:
-  - C:\Users\appveyor\AppData\Roaming\npm\node_modules -> npm-shrinkwrap.json
-  - C:\Users\appveyor\AppData\Roaming\npm-cache -> npm-shrinkwrap.json
   - node_modules -> npm-shrinkwrap.json
   - example/node_modules -> example/npm-shrinkwrap.json
 
@@ -30,3 +28,5 @@ init:
 
 matrix:
   fast_finish: true
+
+version: '#{build}'

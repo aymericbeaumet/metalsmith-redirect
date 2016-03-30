@@ -40,7 +40,6 @@ Metalsmith(__dirname)
     '/foo': '/img/foo.png',
     '/bar.html': '/img/'
   }))
-  .build();
 ```
 
 This plugin can be configured by passing an object. Each key/value will be used
