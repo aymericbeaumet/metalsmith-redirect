@@ -20,7 +20,7 @@ cache:
   - node_modules -> npm-shrinkwrap.json
   - example/node_modules -> example/npm-shrinkwrap.json
 
-clone_depth: 10
+clone_depth: 1
 
 init:
   - git config --global core.autocrlf input
@@ -28,5 +28,7 @@ init:
 
 matrix:
   fast_finish: true
+
+shallow_clone: true
 
 version: '#{build}'

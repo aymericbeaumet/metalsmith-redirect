@@ -23,7 +23,7 @@ addons:
       secure: oBSd83e4ZR44kMVxk5c1RJvHjrkZutT1dEYpvdT6F2VyPpmcpMBfqsScDFplRgr/gUT32exAge0DKgE0+5kiM/k+KY5maHRm8HFpKasHZJJUBl1b1epAqUCM69yto+4pgazKtD4Ow/fDZwuXpZCCRICvXRYWME9k0UCXI9HUIHA=
 
 git:
-  depth: 10
+  depth: 1
 
 matrix:
   fast_finish: true
