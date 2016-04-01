@@ -86,6 +86,9 @@ object is what is resolved by the plugin.
 
 ## Changelog
 
+* 2.0.1
+  * Switch test suite to nyc + ava
+
 * 2.0.0
   * Only support Node.js 4+
   * Drop the jade dependency in favor of the ES.next template strings

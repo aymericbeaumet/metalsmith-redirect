@@ -1,24 +1,24 @@
 'use strict'
 
 const redirect = require('..')
-const test = require('tape')
+const test = require('ava')
 
-test('metalsmith-redirect should default to no redirections', function (t) {
+test.cb('metalsmith-redirect should default to no redirections', (t) => {
   t.plan(1)
   const plugin = redirect()
   const files = {}
-  plugin(files, null, function () {
-    t.deepEqual(Object.keys(files).length, 0)
+  plugin(files, null, () => {
+    t.same(Object.keys(files).length, 0)
+    t.end()
   })
 })
 
-test('metalsmith-redirect should use the redirections passed as the options', function (t) {
+test.cb('metalsmith-redirect should use the redirections passed as the options', (t) => {
   t.plan(1)
   const plugin = redirect({ 'a': 'b' })
   const files = {}
-  plugin(files, null, function () {
-    console.log(files)
-    t.deepEqual(files['a/index.html'].contents, `<!DOCTYPE html>
+  plugin(files, null, () => {
+    t.same(files['a/index.html'].contents, `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -30,5 +30,6 @@ test('metalsmith-redirect should use the redirections passed as the options', fu
   <body>This page has been moved <a href="/a/b">here</a>.</body>
 </html>
 `)
+    t.end()
   })
 })

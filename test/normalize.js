@@ -1,29 +1,31 @@
 'use strict'
 
 const normalize = require('../lib/normalize')
-const test = require('tape')
+const test = require('ava')
 
-test('normalize().get() should handle Unix style path', (t) => {
+test.cb('normalize().get() should handle Unix style path', (t) => {
   const refs = {
     '/foo/bar': '/foo/bar'
   }
   t.plan(Object.keys(refs).length)
   Object.keys(refs).forEach((key) => {
-    t.deepEqual(normalize(refs[key]).get(), refs[key])
+    t.same(normalize(refs[key]).get(), refs[key])
   })
+  t.end()
 })
 
-test('normalize().get() should handle Windows style path', (t) => {
+test.cb('normalize().get() should handle Windows style path', (t) => {
   const refs = {
     '\\foo\\bar': '/foo/bar'
   }
   t.plan(Object.keys(refs).length)
   Object.keys(refs).forEach((key) => {
-    t.deepEqual(normalize(refs[key]).get(), refs[key])
+    t.same(normalize(refs[key]).get(), refs[key])
   })
+  t.end()
 })
 
-test('normalize().appendHTMLIndexIfNeeded().get() should return the path without any modification if it\'s not a directory', (t) => {
+test.cb('normalize().appendHTMLIndexIfNeeded().get() should return the path without any modification if it\'s not a directory', (t) => {
   const refs = [
     'foo/index.md',
     '/foo/index.md',
@@ -34,11 +36,12 @@ test('normalize().appendHTMLIndexIfNeeded().get() should return the path without
   ]
   t.plan(refs.length)
   refs.forEach((ref) => {
-    t.deepEqual(normalize(ref).appendHTMLIndexIfNeeded().get(), ref)
+    t.same(normalize(ref).appendHTMLIndexIfNeeded().get(), ref)
   })
+  t.end()
 })
 
-test('normalize().appendHTMLIndexIfNeeded().get() should return the path with a HTML index appended if it\'s a directory', (t) => {
+test.cb('normalize().appendHTMLIndexIfNeeded().get() should return the path with a HTML index appended if it\'s a directory', (t) => {
   const refs = {
     'foo': 'foo/index.html',
     '/foo': '/foo/index.html',
@@ -49,16 +52,18 @@ test('normalize().appendHTMLIndexIfNeeded().get() should return the path with a 
   }
   t.plan(Object.keys(refs).length)
   Object.keys(refs).forEach((key) => {
-    t.deepEqual(normalize(key).appendHTMLIndexIfNeeded().get(), refs[key])
+    t.same(normalize(key).appendHTMLIndexIfNeeded().get(), refs[key])
   })
+  t.end()
 })
 
-test('normalize().appendHTMLIndexIfNeeded().get() should properly support protocols (http://, ...)', (t) => {
+test.cb('normalize().appendHTMLIndexIfNeeded().get() should properly support protocols (http://, ...)', (t) => {
   t.plan(1)
-  t.deepEqual(normalize('http://foobar').appendHTMLIndexIfNeeded().get(), 'http://foobar/index.html')
+  t.same(normalize('http://foobar').appendHTMLIndexIfNeeded().get(), 'http://foobar/index.html')
+  t.end()
 })
 
-test('normalize().ensureHTML() should not throw an exception if the wrapped path ends with a HTML file', (t) => {
+test.cb('normalize().ensureHTML() should not throw an exception if the wrapped path ends with a HTML file', (t) => {
   const refs = [
     'index.html',
     '/index.html',
@@ -68,20 +73,22 @@ test('normalize().ensureHTML() should not throw an exception if the wrapped path
   ]
   t.plan(Object.keys(refs).length)
   refs.forEach((ref) => {
-    t.doesNotThrow(() => {
+    t.notThrows(() => {
       normalize(ref).ensureHTML()
     })
   })
+  t.end()
 })
 
-test('normalize().ensureHTML() should throw an exception if the wrapped path doesn\'t end with a HTML file', (t) => {
+test.cb('normalize().ensureHTML() should throw an exception if the wrapped path doesn\'t end with a HTML file', (t) => {
   t.plan(1)
   t.throws(() => {
     normalize('index.md').ensureHTML()
   }, / is not a valid HTML path$/)
+  t.end()
 })
 
-test('normalize().relativeTo().get() should return a path relative to the given one', (t) => {
+test.cb('normalize().relativeTo().get() should return a path relative to the given one', (t) => {
   /* ref / relative dir / result */
   const refs = [
     // 1st readme example
@@ -96,6 +103,7 @@ test('normalize().relativeTo().get() should return a path relative to the given 
   ]
   t.plan(refs.length)
   refs.forEach((ref) => {
-    t.deepEqual(normalize(ref[0]).relativeTo(ref[1]).get(), ref[2])
+    t.same(normalize(ref[0]).relativeTo(ref[1]).get(), ref[2])
   })
+  t.end()
 })
