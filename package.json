@@ -9,9 +9,7 @@
   "author": "Aymeric Beaumet <aymeric@beaumet.me>",
   "license": "CC0-1.0",
   "main": "lib",
-  "dependencies": {
-    "jade": "1.11.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "codeclimate-test-reporter": "0.3.1",
     "istanbul": "0.4.2",
