@@ -15,9 +15,11 @@ exclude_paths:
   - example*/**/*
   - node_modules/**/*
   - test/**/*
+  - *.json
+  - *.md
 
 ratings:
   paths:
-    - "**.es6"
-    - "**.js"
-    - "**.jsx"
+    - **.es6
+    - **.js
+    - **.jsx
