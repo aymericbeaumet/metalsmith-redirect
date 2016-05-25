@@ -9,7 +9,7 @@ test.cb('normalize().get() should handle Unix style path', (t) => {
   }
   t.plan(Object.keys(refs).length)
   Object.keys(refs).forEach((key) => {
-    t.same(normalize(refs[key]).get(), refs[key])
+    t.deepEqual(normalize(refs[key]).get(), refs[key])
   })
   t.end()
 })
@@ -20,7 +20,7 @@ test.cb('normalize().get() should handle Windows style path', (t) => {
   }
   t.plan(Object.keys(refs).length)
   Object.keys(refs).forEach((key) => {
-    t.same(normalize(refs[key]).get(), refs[key])
+    t.deepEqual(normalize(refs[key]).get(), refs[key])
   })
   t.end()
 })
@@ -36,7 +36,7 @@ test.cb('normalize().appendHTMLIndexIfNeeded().get() should return the path with
   ]
   t.plan(refs.length)
   refs.forEach((ref) => {
-    t.same(normalize(ref).appendHTMLIndexIfNeeded().get(), ref)
+    t.deepEqual(normalize(ref).appendHTMLIndexIfNeeded().get(), ref)
   })
   t.end()
 })
@@ -52,14 +52,14 @@ test.cb('normalize().appendHTMLIndexIfNeeded().get() should return the path with
   }
   t.plan(Object.keys(refs).length)
   Object.keys(refs).forEach((key) => {
-    t.same(normalize(key).appendHTMLIndexIfNeeded().get(), refs[key])
+    t.deepEqual(normalize(key).appendHTMLIndexIfNeeded().get(), refs[key])
   })
   t.end()
 })
 
 test.cb('normalize().appendHTMLIndexIfNeeded().get() should properly support protocols (http://, ...)', (t) => {
   t.plan(1)
-  t.same(normalize('http://foobar').appendHTMLIndexIfNeeded().get(), 'http://foobar/index.html')
+  t.deepEqual(normalize('http://foobar').appendHTMLIndexIfNeeded().get(), 'http://foobar/index.html')
   t.end()
 })
 
@@ -103,7 +103,7 @@ test.cb('normalize().relativeTo().get() should return a path relative to the giv
   ]
   t.plan(refs.length)
   refs.forEach((ref) => {
-    t.same(normalize(ref[0]).relativeTo(ref[1]).get(), ref[2])
+    t.deepEqual(normalize(ref[0]).relativeTo(ref[1]).get(), ref[2])
   })
   t.end()
 })
