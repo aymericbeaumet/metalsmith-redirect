@@ -13,7 +13,11 @@
   "devDependencies": {
     "ava": "0.15.0",
     "codeclimate-test-reporter": "0.3.1",
+    "gulp": "3.9.1",
+    "gulpsmith": "0.5.5",
+    "metalsmith": "2.1.0",
     "nyc": "6.4.4",
+    "rimraf": "2.5.2",
     "standard": "7.1.0"
   },
   "scripts": {

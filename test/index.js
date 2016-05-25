@@ -27,7 +27,7 @@ test.cb('metalsmith-redirect should use the redirections passed as the options',
     <link rel="canonical" href="/a/b">
     <script>window.location.replace('/a/b');</script>
   </head>
-  <body>This page has been moved <a href="/a/b">here</a>.</body>
+  <body>This page has been moved to <a href="/a/b">/a/b</a></body>
 </html>
 `)
     t.end()

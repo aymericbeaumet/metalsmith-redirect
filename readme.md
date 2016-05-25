@@ -86,6 +86,11 @@ object is what is resolved by the plugin.
 
 ## Changelog
 
+* 2.1.0
+  * `contents` key is now a `Buffer`
+    (https://github.com/aymericbeaumet/metalsmith-redirect/issues/10)
+  * bump dev dependencies
+
 * 2.0.1
   * Switch test suite to nyc + ava
 
