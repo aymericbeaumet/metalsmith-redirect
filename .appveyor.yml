@@ -6,12 +6,10 @@ environment:
 
 install:
   - npm install
-  - pushd example && npm install && popd
 
 test_script:
   - node --version && npm --version
   - npm test
-  - pushd example && node build.js && popd
 
 ###
 
@@ -19,7 +17,6 @@ build: off
 
 cache:
   - node_modules -> npm-shrinkwrap.json
-  - example/node_modules -> example/npm-shrinkwrap.json
 
 clone_depth: 1
 

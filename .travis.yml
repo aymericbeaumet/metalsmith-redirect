@@ -6,15 +6,15 @@ node_js:
 
 install:
   - npm install
-  - pushd example && npm install && popd
 
 script:
   - node --version && npm --version
   - npm test
-  - pushd example && node build.js && popd
 
 after_success:
-  - npm run codeclimate
+  - if [ $TRAVIS_OS_NAME == linux ] && [ $TRAVIS_NODE_VERSION == 4 ] ; then
+      npm run codeclimate
+    fi
 
 ###
 
@@ -23,10 +23,18 @@ addons:
     repo_token:
       secure: oBSd83e4ZR44kMVxk5c1RJvHjrkZutT1dEYpvdT6F2VyPpmcpMBfqsScDFplRgr/gUT32exAge0DKgE0+5kiM/k+KY5maHRm8HFpKasHZJJUBl1b1epAqUCM69yto+4pgazKtD4Ow/fDZwuXpZCCRICvXRYWME9k0UCXI9HUIHA=
 
+cache:
+  directories:
+    - node_modules
+
 git:
   depth: 1
 
 matrix:
   fast_finish: true
+
+os:
+  - linux
+  - osx
 
 sudo: false
