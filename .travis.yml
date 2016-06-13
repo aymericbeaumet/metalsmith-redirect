@@ -12,9 +12,7 @@ script:
   - npm test
 
 after_success:
-  - if [ $TRAVIS_OS_NAME == linux ] && [ $TRAVIS_NODE_VERSION == 4 ] ; then
-      npm run codeclimate
-    fi
+  - [ $TRAVIS_OS_NAME == linux ] && [ $TRAVIS_NODE_VERSION == 4 ] && npm run codeclimate
 
 ###
 

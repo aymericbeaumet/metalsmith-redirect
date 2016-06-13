@@ -1,8 +1,8 @@
 [![NPM version](https://img.shields.io/npm/v/metalsmith-redirect.svg?style=flat&label=npm)](https://www.npmjs.com/package/metalsmith-redirect)
-[![Linux build status](https://img.shields.io/travis/aymericbeaumet/metalsmith-redirect/master.svg?style=flat&label=linux)](https://travis-ci.org/aymericbeaumet/metalsmith-redirect)
+[![Linux/OSX build status](https://img.shields.io/travis/aymericbeaumet/metalsmith-redirect/master.svg?style=flat&label=linux/osx)](https://travis-ci.org/aymericbeaumet/metalsmith-redirect)
 [![Windows build status](https://img.shields.io/appveyor/ci/aymericbeaumet/metalsmith-redirect/master.svg?style=flat&label=windows)](https://ci.appveyor.com/project/aymericbeaumet/metalsmith-redirect)
 [![Code coverage](https://img.shields.io/codeclimate/coverage/github/aymericbeaumet/metalsmith-redirect.svg?style=flat&label=coverage)](https://codeclimate.com/github/aymericbeaumet/metalsmith-redirect)
-[![GPA](https://img.shields.io/codeclimate/github/aymericbeaumet/metalsmith-redirect.svg?style=flat&label=GPA)](https://codeclimate.com/github/aymericbeaumet/metalsmith-redirect)
+[![GPA](https://img.shields.io/codeclimate/github/aymericbeaumet/metalsmith-redirect.svg?style=flat&label=gpa)](https://codeclimate.com/github/aymericbeaumet/metalsmith-redirect)
 [![Dependencies status](https://img.shields.io/david/aymericbeaumet/metalsmith-redirect.svg?style=flat&label=dependencies)](https://david-dm.org/aymericbeaumet/metalsmith-redirect)
 
 # metalsmith-redirect
