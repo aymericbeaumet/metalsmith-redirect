@@ -1,31 +1,29 @@
-'use strict'
+import test from 'ava'
+import normalize from '../dist/normalize'
 
-const normalize = require('../lib/normalize')
-const test = require('ava')
-
-test.cb('normalize().get() should handle Unix style path', (t) => {
+test.cb('normalize().value() should handle Unix style path', (t) => {
   const refs = {
     '/foo/bar': '/foo/bar'
   }
   t.plan(Object.keys(refs).length)
   Object.keys(refs).forEach((key) => {
-    t.deepEqual(normalize(refs[key]).get(), refs[key])
+    t.deepEqual(normalize(refs[key]).value(), refs[key])
   })
   t.end()
 })
 
-test.cb('normalize().get() should handle Windows style path', (t) => {
+test.cb('normalize().value() should handle Windows style path', (t) => {
   const refs = {
     '\\foo\\bar': '/foo/bar'
   }
   t.plan(Object.keys(refs).length)
   Object.keys(refs).forEach((key) => {
-    t.deepEqual(normalize(refs[key]).get(), refs[key])
+    t.deepEqual(normalize(refs[key]).value(), refs[key])
   })
   t.end()
 })
 
-test.cb('normalize().appendHTMLIndexIfNeeded().get() should return the path without any modification if it\'s not a directory', (t) => {
+test.cb('normalize().appendHTMLIndexIfNeeded().value() should return the path without any modification if it\'s not a directory', (t) => {
   const refs = [
     'foo/index.md',
     '/foo/index.md',
@@ -36,12 +34,12 @@ test.cb('normalize().appendHTMLIndexIfNeeded().get() should return the path with
   ]
   t.plan(refs.length)
   refs.forEach((ref) => {
-    t.deepEqual(normalize(ref).appendHTMLIndexIfNeeded().get(), ref)
+    t.deepEqual(normalize(ref).appendHTMLIndexIfNeeded().value(), ref)
   })
   t.end()
 })
 
-test.cb('normalize().appendHTMLIndexIfNeeded().get() should return the path with a HTML index appended if it\'s a directory', (t) => {
+test.cb('normalize().appendHTMLIndexIfNeeded().value() should return the path with a HTML index appended if it\'s a directory', (t) => {
   const refs = {
     'foo': 'foo/index.html',
     '/foo': '/foo/index.html',
@@ -52,14 +50,14 @@ test.cb('normalize().appendHTMLIndexIfNeeded().get() should return the path with
   }
   t.plan(Object.keys(refs).length)
   Object.keys(refs).forEach((key) => {
-    t.deepEqual(normalize(key).appendHTMLIndexIfNeeded().get(), refs[key])
+    t.deepEqual(normalize(key).appendHTMLIndexIfNeeded().value(), refs[key])
   })
   t.end()
 })
 
-test.cb('normalize().appendHTMLIndexIfNeeded().get() should properly support protocols (http://, ...)', (t) => {
+test.cb('normalize().appendHTMLIndexIfNeeded().value() should properly support protocols (http://, ...)', (t) => {
   t.plan(1)
-  t.deepEqual(normalize('http://foobar').appendHTMLIndexIfNeeded().get(), 'http://foobar/index.html')
+  t.deepEqual(normalize('http://foobar').appendHTMLIndexIfNeeded().value(), 'http://foobar/index.html')
   t.end()
 })
 
@@ -88,7 +86,7 @@ test.cb('normalize().ensureHTML() should throw an exception if the wrapped path 
   t.end()
 })
 
-test.cb('normalize().relativeTo().get() should return a path relative to the given one', (t) => {
+test.cb('normalize().relativeTo().value() should return a path relative to the given one', (t) => {
   /* ref / relative dir / result */
   const refs = [
     // 1st readme example
@@ -103,7 +101,7 @@ test.cb('normalize().relativeTo().get() should return a path relative to the giv
   ]
   t.plan(refs.length)
   refs.forEach((ref) => {
-    t.deepEqual(normalize(ref[0]).relativeTo(ref[1]).get(), ref[2])
+    t.deepEqual(normalize(ref[0]).relativeTo(ref[1]).value(), ref[2])
   })
   t.end()
 })
