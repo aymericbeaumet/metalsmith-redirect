@@ -1,12 +1,10 @@
-'use strict'
-
-const fs = require('fs')
-const gulp = require('gulp')
-const gulpsmith = require('gulpsmith')
-const path = require('path')
-const redirect = require('..')
-const rimraf = require('rimraf')
-const test = require('ava')
+import fs from 'fs'
+import gulp from 'gulp'
+import gulpsmith from 'gulpsmith'
+import path from 'path'
+import rimraf from 'rimraf'
+import test from 'ava'
+import redirect from '..'
 
 // Define the build path, and make sure it's being cleaned before and after each
 // build
