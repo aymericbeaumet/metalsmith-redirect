@@ -35,14 +35,15 @@ test.cb(
       '../../index.md',
     ]
     t.plan(refs.length)
-    refs.forEach(ref => {
+    for (const ref of refs) {
       t.deepEqual(
         normalize(ref)
           .appendHTMLIndexIfNeeded()
           .get(),
         ref
       )
-    })
+    }
+
     t.end()
   }
 )
@@ -59,14 +60,15 @@ test.cb(
       '/////': '/index.html',
     }
     t.plan(Object.keys(refs).length)
-    Object.keys(refs).forEach(key => {
+    for (const [key, expected] of Object.entries(refs)) {
       t.deepEqual(
         normalize(key)
           .appendHTMLIndexIfNeeded()
           .get(),
-        refs[key]
+        expected
       )
-    })
+    }
+
     t.end()
   }
 )
@@ -96,11 +98,10 @@ test.cb(
       'http://foo.bar/index.html',
     ]
     t.plan(Object.keys(refs).length)
-    refs.forEach(ref => {
-      t.notThrows(() => {
-        normalize(ref).ensureHTML()
-      })
-    })
+    for (const ref of refs) {
+      t.notThrows(() => normalize(ref).ensureHTML())
+    }
+
     t.end()
   }
 )
@@ -109,15 +110,16 @@ test.cb(
   "normalize().ensureHTML() should throw an exception if the wrapped path doesn't end with a HTML file",
   t => {
     t.plan(1)
-    t.throws(() => {
-      normalize('index.md').ensureHTML()
-    }, / is not a valid HTML path$/)
+    t.throws(
+      () => normalize('index.md').ensureHTML(),
+      / is not a valid HTML path$/
+    )
     t.end()
   }
 )
 
 test.cb(
-  'normalize().relativeTo().get() should return a path relative to the given one',
+  'normalize().relativeTo().get() should return the destination path relative to the source',
   t => {
     /* Ref / relative dir / result */
     const refs = [
@@ -132,14 +134,15 @@ test.cb(
       ['https://github.com/segmentio', '', 'https://github.com/segmentio'],
     ]
     t.plan(refs.length)
-    refs.forEach(ref => {
+    for (const ref of refs) {
       t.deepEqual(
         normalize(ref[0])
           .relativeTo(ref[1])
           .get(),
         ref[2]
       )
-    })
+    }
+
     t.end()
   }
 )

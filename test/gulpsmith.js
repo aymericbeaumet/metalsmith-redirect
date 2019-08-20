@@ -4,7 +4,7 @@ const gulp = require('gulp')
 const gulpsmith = require('gulpsmith')
 const rimraf = require('rimraf')
 const test = require('ava')
-const redirect = require('..')
+const metalsmithRedirect = require('..')
 
 // Define the build path
 const build = path.join(__dirname, 'build')
@@ -13,20 +13,19 @@ const build = path.join(__dirname, 'build')
 test.afterEach.always.cb(t => rimraf(build, t.end))
 
 // https://github.com/aymericbeaumet/metalsmith-redirect/issues/10
-test.serial.cb(
-  'metalsmith-redirect should be working with gulp and gulpsmith',
-  t => {
-    t.plan(2)
-    gulp
-      .src('*', { ignore: '*' }) // I just want an empty source
-      .pipe(gulpsmith().use(redirect({ '/foo': '/bar' })))
-      .pipe(gulp.dest(build))
-      .once('end', () => {
-        fs.lstat(build, (error, stats) => {
-          t.falsy(error)
-          t.true(stats.isDirectory())
-          t.end()
-        })
+test.serial.cb('metalsmith-redirect should work with gulp and gulpsmith', t => {
+  t.plan(2)
+  gulp
+    .src('*')
+    .pipe(
+      gulpsmith().use(metalsmithRedirect({ redirections: { '/foo': '/bar' } }))
+    )
+    .pipe(gulp.dest(build))
+    .once('end', () => {
+      fs.readFile(path.join(build, 'foo/index.html'), (error, data) => {
+        t.falsy(error)
+        t.true(data.toString().includes('/bar'))
+        t.end()
       })
-  }
-)
+    })
+})
