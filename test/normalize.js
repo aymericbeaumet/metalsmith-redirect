@@ -9,6 +9,7 @@ test.cb('normalize().get() should handle Unix style path', t => {
   for (const [key, expected] of Object.entries(refs)) {
     t.deepEqual(normalize(key).get(), expected)
   }
+
   t.end()
 })
 
@@ -20,6 +21,7 @@ test.cb('normalize().get() should handle Windows style path', t => {
   for (const [key, expected] of Object.entries(refs)) {
     t.deepEqual(normalize(key).get(), expected)
   }
+
   t.end()
 })
 
