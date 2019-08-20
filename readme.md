@@ -90,30 +90,56 @@ redirect: /about-me
 
 Note: for this to work, this plugin must be `use`d before any markdown parser.
 
-#### options.markdown.extensions
+#### options.frontmatter.extensions
 
-Type: `string[]`
+Type: `string | string[] | (string) -> boolean`
 Default: `[".md", ".mdown", ".markdown"]
 
 A list of extensions this plugin uses to infer the type of a file as Markdown
 (case-insensitive).
 
-#### options.markdown.frontmatter
+#### options.markdown.redirectFrom
 
-Type: `string`
-Default: `"redirect"`
+A string or array of string to be used as source.
+
+#### options.markdown.redirectFrom.keep
+
+Type: `boolean`
+Default: `true`
+
+Whether the Markdown files should be kept after a redirection have been
+extracted from their frontmatter. They are not kept by default.
+
+#### options.markdown.redirectFrom.path
+
+Type: `string | string[]`
+Default: `"redirectFrom"`
 
 The frontmatter key to look for. It leverages
 [`_.get`](https://lodash.com/docs#get), so you can do queries like:
 `config.redirect` or `envs[0].redirect`. Unsuccessful queries are ignored.
 
-#### options.markdown.keep
+#### options.frontmatter.redirectTo
+
+A string to be used as destination.
+
+#### options.markdown.redirectTo.keep
 
 Type: `boolean`
 Default: `false`
 
 Whether the Markdown files should be kept after a redirection have been
 extracted from their frontmatter. They are not kept by default.
+
+#### options.frontmatter.redirectTo.path
+
+Type: `string`
+Default: `"redirectTo"`
+
+The frontmatter key to look for. It leverages
+[`_.get`](https://lodash.com/docs#get), so you can do queries like:
+`config.redirect` or `envs[0].redirect`. Unsuccessful queries are ignored.
+If you supply an array, the first successfull query will be used.
 
 #### options.preserveHash
 
