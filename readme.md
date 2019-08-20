@@ -1,7 +1,5 @@
 # metalsmith-redirect [![Build Status](https://travis-ci.org/aymericbeaumet/metalsmith-redirect.svg?branch=master)](https://travis-ci.org/aymericbeaumet/metalsmith-redirect)
 
-# metalsmith-redirect
-
 > A Metalsmith plugin to create HTTP redirections
 
 ## Install
@@ -70,6 +68,53 @@ A relative path in the source will be resolved based on the site root `'/'`.
 
 A relative path in the destination will be resolved based on the source directory.
 
+#### options.markdown
+
+Type: `boolean | Object`
+Default: `false`
+
+By setting this options to `true`, enable the extraction of redirections from
+Markdown frontmatters. You can enable the extraction by using an object
+instead, which has the advantage to allow you to set all the options
+individually.
+
+This feature is convenient to keep the redirections close to
+the code. For example let's consider you have a file `/about.md` (see
+below). If you want to create a redirection to `/about-me`, you would do:
+
+```markdown
+---
+redirect: /about-me
+---
+```
+
+Note: for this to work, this plugin must be `use`d before any markdown parser.
+
+#### options.markdown.extension
+
+Type: `string[]`
+Default: `[".md", ".mdown", ".markdown"]
+
+A list of extensions this plugin uses to infer the type of a file as Markdown
+(case-insensitive).
+
+#### options.markdown.keep
+
+Type: `boolean`
+Default: `false`
+
+Whether the Markdown files should be kept after a redirection have been
+extracted from their frontmatter. They are not kept by default.
+
+#### options.markdown.frontmatter
+
+Type: `string`
+Default: `"redirect"`
+
+The frontmatter key to look for. It leverages
+[`_.get`](https://lodash.com/docs#get), so you can do queries like:
+`config.redirect` or `envs[0].redirect`. Unsuccessful queries are ignored.
+
 #### options.preserveHash
 
 Type: `boolean`
@@ -94,53 +139,6 @@ This option is the number of second(s) after which the fallback should
 redirect the user.
 
 Note: this option is not used when `preserveHash` is disabled.
-
-#### options.markdownFrontmatter
-
-Type: `boolean | Object`
-Default: `false`
-
-By setting this options to `true`, enable the extraction of redirections from
-Markdown frontmatters. You can enable the extraction by using an object
-instead, which has the advantage to allow you to set all the options
-individually.
-
-This feature is convenient to keep the redirections close to
-the code. For example let's consider you have a file `/about.md` (see
-below). If you want to create a redirection to `/about-me`, you would do:
-
-```markdown
----
-redirect: /about-me
----
-```
-
-Note: for this to work, this plugin must be `use`d before any markdown parser.
-
-#### options.markdownFrontmatter.extension
-
-Type: `string[]`
-Default: `[".md", ".mdown", ".markdown"]
-
-A list of extensions this plugin uses to infer the type of a file as Markdown
-(case-insensitive).
-
-#### options.markdownFrontmatter.keep
-
-Type: `boolean`
-Default: `false`
-
-Whether the Markdown files should be kept after a redirection have been
-extracted from their frontmatter. They are not kept by default.
-
-#### options.markdownFrontmatter.key
-
-Type: `string`
-Default: `"redirect"`
-
-The frontmatter key to look for. It leverages
-[`_.get`](https://lodash.com/docs#get), so you can do queries like:
-`config.redirect` or `envs[0].redirect`. Unsuccessful queries are ignored.
 
 ## FAQ
 
