@@ -1,141 +1,175 @@
-[![NPM version](https://img.shields.io/npm/v/metalsmith-redirect.svg?style=flat&label=npm)](https://www.npmjs.com/package/metalsmith-redirect)
-[![Linux build status](https://img.shields.io/travis/aymericbeaumet/metalsmith-redirect/master.svg?style=flat&label=linux)](https://travis-ci.org/aymericbeaumet/metalsmith-redirect)
-[![Windows build status](https://img.shields.io/appveyor/ci/aymericbeaumet/metalsmith-redirect/master.svg?style=flat&label=windows)](https://ci.appveyor.com/project/aymericbeaumet/metalsmith-redirect)
-[![Code coverage](https://img.shields.io/codeclimate/coverage/github/aymericbeaumet/metalsmith-redirect.svg?style=flat&label=coverage)](https://codeclimate.com/github/aymericbeaumet/metalsmith-redirect)
-[![GPA](https://img.shields.io/codeclimate/github/aymericbeaumet/metalsmith-redirect.svg?style=flat&label=GPA)](https://codeclimate.com/github/aymericbeaumet/metalsmith-redirect)
-[![Dependencies status](https://img.shields.io/david/aymericbeaumet/metalsmith-redirect.svg?style=flat&label=dependencies)](https://david-dm.org/aymericbeaumet/metalsmith-redirect)
+# metalsmith-redirect [![Build Status](https://travis-ci.org/aymericbeaumet/metalsmith-redirect.svg?branch=master)](https://travis-ci.org/aymericbeaumet/metalsmith-redirect)
 
 # metalsmith-redirect
 
-A Metalsmith plugin to create HTTP redirections.
+> A Metalsmith plugin to create HTTP redirections
 
-## Installation
+## Install
 
-```javascript
-$ npm install metalsmith-redirect
+```shell
+npm install --save metalsmith-redirect
 ```
 
 ## Usage
 
 ### CLI
 
-```javascript
+**metalsmith.json**
+
+```json
 {
   "plugins": {
     "metalsmith-redirect": {
-      "/from/foo.html": "/to/bar.html"
+      "redirections": {
+        "/from/foo.html": "/to/bar.html"
+      }
     }
   }
 }
 ```
 
-### JavaScript
+### API
 
 ```javascript
-var MetalSmith = require('metalsmith');
-var redirect = require('metalsmith-redirect');
+const metalsmith = require('metalsmith')
+const metalsmithRedirect = require('metalsmith-redirect')
 
-Metalsmith(__dirname)
-  .use(redirect({
-    '/foo': '/img/foo.png',
-    '/bar.html': '/img/'
-  }))
+metalsmith(__dirname).use(
+  metalsmithRedirect({
+    redirections: {
+      '/foo': '/img/foo.png',
+      '/bar.html': '/img/',
+    },
+  })
+)
 ```
 
-This plugin can be configured by passing an object. Each key/value will be used
-to create a redirection. Each key corresponds to the source and the associated
-value to the destination.
+**metalsmithRedirect(options)**
+
+#### options
+
+Type: `Object`
+Default: `{}`
+
+#### options.redirections
+
+Type: `Object`
+Default: `{}`
+
+Each key/value will be used to create a redirection. Each key corresponds to
+the source and the associated value to the destination.
 
 Due to restrictions in the way this plugin proceeds, the source must be either:
-- a HTML file path
+
+- an HTML file path
 - a folder path, in such a case '/index.html' will be appended
 
 The destination can be any kind of path.
 
-A relative path in the source will be resolved from '/'.
+A relative path in the source will be resolved based on the site root `'/'`.
 
-A relative path in the destination will be resolved from the source directory.
+A relative path in the destination will be resolved based on the source directory.
 
-## Examples
+#### options.preserveHash
 
-Some examples of user configurations and how they are resolved by this plugin.
-For each example, the first object is the user configuration, and the second
-object is what is resolved by the plugin.
+Type: `boolean`
+Default: `false`
 
+This option allows to preserve the hash from the source url. For example if
+you redirect `/a` to `/b`, a visitor currently at `/a#comments` will be
+redirected to `/b#comments`.
+
+#### options.preserveHash.fallbackTimeout
+
+Type: `number`
+Default: 3
+
+Preserving the hash will optimistically try to leverage JavaScript to
+redirect the user. This will work in most cases, but for some users with
+JavaScript disabled this means they could remain stuck. When this happens it
+should fallback to the html meta redirection (which cannot preserve the
+hashes due to its static nature).
+
+This option is the number of second(s) after which the fallback should
+redirect the user.
+
+Note: this option is not used when `preserveHash` is disabled.
+
+#### options.markdownFrontmatter
+
+Type: `boolean | Object`
+Default: `false`
+
+By setting this options to `true`, enable the extraction of redirections from
+Markdown frontmatters. You can enable the extraction by using an object
+instead, which has the advantage to allow you to set all the options
+individually.
+
+This feature is convenient to keep the redirections close to
+the code. For example let's consider you have a file `/about.md` (see
+below). If you want to create a redirection to `/about-me`, you would do:
+
+```markdown
+---
+redirect: /about-me
+---
+```
+
+Note: for this to work, this plugin must be `use`d before any markdown parser.
+
+#### options.markdownFrontmatter.extension
+
+Type: `string[]`
+Default: `[".md", ".mdown", ".markdown"]
+
+A list of extensions this plugin uses to infer the type of a file as Markdown
+(case-insensitive).
+
+#### options.markdownFrontmatter.keep
+
+Type: `boolean`
+Default: `false`
+
+Whether the Markdown files should be kept after a redirection have been
+extracted from their frontmatter. They are not kept by default.
+
+#### options.markdownFrontmatter.key
+
+Type: `string`
+Default: `"redirect"`
+
+The frontmatter key to look for. It leverages
+[`_.get`](https://lodash.com/docs#get), so you can do queries like:
+`config.redirect` or `envs[0].redirect`. Unsuccessful queries are ignored.
+
+## FAQ
+
+> Can you give some example of the redirection algorithm?
+
+You can find below some examples of user configurations and how they are
+resolved by this plugin. For each example, the object is the configuration,
+immediately followed by the file created by the plugin, an arrow, and the url
+toward which the visitor will be redirected.
 
 ```javascript
 { 'foo': 'hidden.html' }
-{ '/foo/index.html': '/foo/hidden.html' }
+// '/foo/index.html' -> '/foo/hidden.html'
 ```
 
 ```javascript
 { '/foo/bar.html': 'baz' }
-{ '/foo/bar.html': '/foo/baz' }
+// '/foo/bar.html' -> '/foo/baz'
 ```
 
+_It is possible to do external redirections:_
+
 ```javascript
-// It is possible to do external redirections.
 { '/github': 'https://github.com/segmentio' }
-{ '/github/index.html': 'https://github.com/segmentio' }
+// '/github/index.html' -> 'https://github.com/segmentio'
 ```
+
+_A Markdown file is not a valid source:_
 
 ```javascript
-// A Markdown file is not a valid source
-{ 'foo.md': 'hidden.html' } // throw error
+{ 'foo.md': 'hidden.html' } // Error: "foo.md" is not a valid html path
 ```
-
-## Changelog
-
-* 2.1.0
-  * `contents` key is now a `Buffer`
-    (https://github.com/aymericbeaumet/metalsmith-redirect/issues/10)
-  * bump dev dependencies
-
-* 2.0.1
-  * Switch test suite to nyc + ava
-
-* 2.0.0
-  * Only support Node.js 4+
-  * Drop the jade dependency in favor of the ES.next template strings
-
-* 1.3.1
-  * Lightweight npm-shrinkwrap
-
-* 1.3.0
-  * Bump dependencies
-
-* 1.2.0
-  * HTML meta redirection occurs immediately
-
-* 1.1.0
-  * `jade@1.11.0`
-  * `metalsmith@1.7.0`
-  * `metalsmith-templates@0.7.0`
-  * `underscore@1.8.3`
-
-* 1.0.2
-  * The Jade template now produces valid HTML (the doctype was missing)
-
-* 1.0.1
-  * Strip leading slash to support latest Metalsmith major release (`1.0.0`)
-
-* 1.0.0
-  * Bump stable
-
-* 0.0.3
-  * Now use `rel=canonical` in the redirection template
-
-* 0.0.2
-  * Automatic NPM deployment from Travis
-  * Fix the normalize.relativeTo() method
-
-* 0.0.1
-  * Internal redirections (both absolute and relative)
-  * External redirections (toward other websites)
-
-## License
-
-[![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)](http://creativecommons.org/publicdomain/zero/1.0/)
-
-To the extent possible under law, [Aymeric Beaumet](https://aymericbeaumet.com)
-has waived all copyright and related or neighboring rights to this work.

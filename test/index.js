@@ -1,11 +1,9 @@
-'use strict'
-
-const redirect = require('..')
 const test = require('ava')
+const metalsmithRedirect = require('..')
 
-test.cb('metalsmith-redirect should default to no redirections', (t) => {
+test.cb('metalsmith-redirect should default to no redirections', t => {
   t.plan(1)
-  const plugin = redirect()
+  const plugin = metalsmithRedirect()
   const files = {}
   plugin(files, null, () => {
     t.deepEqual(Object.keys(files).length, 0)
@@ -13,12 +11,17 @@ test.cb('metalsmith-redirect should default to no redirections', (t) => {
   })
 })
 
-test.cb('metalsmith-redirect should use the redirections passed as the options', (t) => {
-  t.plan(1)
-  const plugin = redirect({ 'a': 'b' })
-  const files = {}
-  plugin(files, null, () => {
-    t.deepEqual(files['a/index.html'].contents.toString(), `<!DOCTYPE html>
+test.cb(
+  'metalsmith-redirect should use the redirections passed as the options',
+  t => {
+    t.plan(2)
+    const plugin = metalsmithRedirect({ redirections: { a: 'b' } })
+    const files = {}
+    plugin(files, null, () => {
+      t.is(Object.keys(files).length, 1)
+      t.deepEqual(
+        files['a/index.html'].contents.toString(),
+        `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -29,7 +32,9 @@ test.cb('metalsmith-redirect should use the redirections passed as the options',
   </head>
   <body>This page has been moved to <a href="/a/b">/a/b</a></body>
 </html>
-`)
-    t.end()
-  })
-})
+`
+      )
+      t.end()
+    })
+  }
+)

@@ -1,18 +1,11 @@
-'use strict'
-
-const normalize = require('./normalize')
 const path = require('path')
+const normalize = require('./lib/normalize')
 
-/**
- * A Metalsmith plugin to create HTTP redirections.
- * @param {Object} options - the source/destination couples to redirect from/to
- * @return {Function} - the Metalsmith plugin
- */
-module.exports = (options) =>
-  (files, metalsmith, done) =>
-    Object.keys(options || {}).forEach((source) => {
-      const destination = options[source]
+module.exports = (options = {}) => {
+  const { redirections = {} } = options
 
+  return (files, _metalsmith, done) => {
+    for (const [source, destination] of Object.entries(redirections)) {
       // Normalize the source and the destination
       const normalizedSource = normalize(source)
         .appendHTMLIndexIfNeeded()
@@ -24,7 +17,7 @@ module.exports = (options) =>
         .get()
 
       // Render the view
-      const contents = new Buffer(`<!DOCTYPE html>
+      const contents = Buffer.from(`<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -42,4 +35,8 @@ module.exports = (options) =>
 
       // Add the view to the output files
       files[filepath] = { contents }
-    }) || done()
+    }
+
+    done()
+  }
+}
