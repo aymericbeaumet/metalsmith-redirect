@@ -79,10 +79,10 @@ This option allows to preserve the hash from the source url. For example if
 you redirect `/a` to `/b`, a visitor currently at `/a#comments` will be
 redirected to `/b#comments`.
 
-#### options.preserveHash.fallbackTimeout
+#### options.preserveHash.timeout
 
 Type: `number`
-Default: 3
+Default: 1
 
 Preserving the hash will optimistically try to leverage JavaScript to
 redirect the user. This will work in most cases, but for some users with

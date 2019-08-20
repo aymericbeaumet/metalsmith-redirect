@@ -1,8 +1,22 @@
 const path = require('path')
+const _ = require('lodash')
 const normalize = require('./lib/normalize')
+
+function escapeSingleQuotes(str) {
+  return str.replace(/'/g, `\\'`)
+}
+
+function escapeDoubleQuotes(str) {
+  return str.replace(/"/g, `\\"`)
+}
 
 module.exports = (options = {}) => {
   const { redirections = {} } = options
+
+  const preserveHash = options.preserveHash && {
+    timeout: 1,
+    ...(_.isObject(options.preserveHash) ? options.preserveHash : {}),
+  }
 
   return (files, _metalsmith, done) => {
     for (const [source, destination] of Object.entries(redirections)) {
@@ -16,24 +30,30 @@ module.exports = (options = {}) => {
         .relativeTo(path.dirname(normalizedSource))
         .get()
 
+      // Compute the filepath
+      const filepath = normalizedSource.substr(1)
+
       // Render the view
       const contents = Buffer.from(`<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="robots" content="noindex">
-    <meta http-equiv="refresh" content="0;url=${normalizedDestination}">
-    <link rel="canonical" href="${normalizedDestination}">
-    <script>window.location.replace('${normalizedDestination}');</script>
+    <meta http-equiv="refresh" content="${
+      preserveHash ? preserveHash.timeout : 0
+    };url=${escapeDoubleQuotes(normalizedDestination)}">
+    <link rel="canonical" href="${escapeDoubleQuotes(normalizedDestination)}">
+    <script>window.location.replace('${escapeSingleQuotes(
+      normalizedDestination
+    )}'${preserveHash ? ' + window.location.hash' : ''});</script>
   </head>
-  <body>This page has been moved to <a href="${normalizedDestination}">${normalizedDestination}</a></body>
+  <body>This page has been moved to <a href="${escapeDoubleQuotes(
+    normalizedDestination
+  )}">${normalizedDestination}</a></body>
 </html>
 `)
 
-      // Compute the filepath
-      const filepath = normalizedSource.substr(1)
-
-      // Add the view to the output files
+      // Boom
       files[filepath] = { contents }
     }
 
