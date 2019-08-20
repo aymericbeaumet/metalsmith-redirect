@@ -98,14 +98,6 @@ Default: `[".md", ".mdown", ".markdown"]
 A list of extensions this plugin uses to infer the type of a file as Markdown
 (case-insensitive).
 
-#### options.markdown.keep
-
-Type: `boolean`
-Default: `false`
-
-Whether the Markdown files should be kept after a redirection have been
-extracted from their frontmatter. They are not kept by default.
-
 #### options.markdown.frontmatter
 
 Type: `string`
@@ -115,9 +107,17 @@ The frontmatter key to look for. It leverages
 [`_.get`](https://lodash.com/docs#get), so you can do queries like:
 `config.redirect` or `envs[0].redirect`. Unsuccessful queries are ignored.
 
-#### options.preserveHash
+#### options.markdown.keep
 
 Type: `boolean`
+Default: `false`
+
+Whether the Markdown files should be kept after a redirection have been
+extracted from their frontmatter. They are not kept by default.
+
+#### options.preserveHash
+
+Type: `boolean | Object`
 Default: `false`
 
 This option allows to preserve the hash from the source url. For example if
@@ -127,18 +127,17 @@ redirected to `/b#comments`.
 #### options.preserveHash.timeout
 
 Type: `number`
-Default: 1
+Default: `1`
 
-Preserving the hash will optimistically try to leverage JavaScript to
-redirect the user. This will work in most cases, but for some users with
+The number of second(s) after which the fallback should redirect the user
+when hash preservation is enabled.
+
+Why do we need a fallback? This feature will optimistically try to leverage
+JavaScript to redirect the user, as this is the only way to access the
+location hash. This will work in most cases, but for some users with
 JavaScript disabled this means they could remain stuck. When this happens it
 should fallback to the html meta redirection (which cannot preserve the
 hashes due to its static nature).
-
-This option is the number of second(s) after which the fallback should
-redirect the user.
-
-Note: this option is not used when `preserveHash` is disabled.
 
 ## FAQ
 
