@@ -90,7 +90,7 @@ redirect: /about-me
 
 Note: for this to work, this plugin must be `use`d before any markdown parser.
 
-#### options.markdown.extension
+#### options.markdown.extensions
 
 Type: `string[]`
 Default: `[".md", ".mdown", ".markdown"]
