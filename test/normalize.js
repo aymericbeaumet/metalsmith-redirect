@@ -6,9 +6,9 @@ test.cb('normalize().get() should handle Unix style path', t => {
     '/foo/bar': '/foo/bar',
   }
   t.plan(Object.keys(refs).length)
-  Object.keys(refs).forEach(key => {
-    t.deepEqual(normalize(refs[key]).get(), refs[key])
-  })
+  for (const [key, expected] of Object.entries(refs)) {
+    t.deepEqual(normalize(key).get(), expected)
+  }
   t.end()
 })
 
@@ -17,9 +17,9 @@ test.cb('normalize().get() should handle Windows style path', t => {
     '\\foo\\bar': '/foo/bar',
   }
   t.plan(Object.keys(refs).length)
-  Object.keys(refs).forEach(key => {
-    t.deepEqual(normalize(refs[key]).get(), refs[key])
-  })
+  for (const [key, expected] of Object.entries(refs)) {
+    t.deepEqual(normalize(key).get(), expected)
+  }
   t.end()
 })
 
