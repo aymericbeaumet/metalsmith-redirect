@@ -42,14 +42,9 @@ metalsmith(__dirname).use(
 )
 ```
 
-**metalsmithRedirect(options)**
+**metalsmithRedirect(redirections, options)**
 
-#### options
-
-Type: `Object`
-Default: `{}`
-
-#### options.redirections
+#### redirections
 
 Type: `Object`
 Default: `{}`
@@ -68,15 +63,19 @@ A relative path in the source will be resolved based on the site root `'/'`.
 
 A relative path in the destination will be resolved based on the source directory.
 
-#### options.markdown
+#### options
+
+Type: `Object`
+Default: `{}`
+
+#### options.frontmatter
 
 Type: `boolean | Object`
 Default: `false`
 
 By setting this options to `true`, enable the extraction of redirections from
-Markdown frontmatters. You can enable the extraction by using an object
-instead, which has the advantage to allow you to set all the options
-individually.
+frontmatters. You can enable the extraction by using an object instead, which
+has the advantage to allow you to set all the options individually.
 
 This feature is convenient to keep the redirections close to
 the code. For example let's consider you have a file `/about.md` (see
@@ -88,29 +87,7 @@ redirect: /about-me
 ---
 ```
 
-Note: for this to work, this plugin must be `use`d before any markdown parser.
-
-#### options.frontmatter.extensions
-
-Type: `string | string[] | (string) -> boolean`
-Default: `[".md", ".mdown", ".markdown"]
-
-A list of extensions this plugin uses to infer the type of a file as Markdown
-(case-insensitive).
-
-#### options.markdown.redirectFrom
-
-A string or array of string to be used as source.
-
-#### options.markdown.redirectFrom.keep
-
-Type: `boolean`
-Default: `true`
-
-Whether the Markdown files should be kept after a redirection have been
-extracted from their frontmatter. They are not kept by default.
-
-#### options.markdown.redirectFrom.path
+#### options.frontmatter.redirectFrom
 
 Type: `string | string[]`
 Default: `"redirectFrom"`
@@ -120,18 +97,6 @@ The frontmatter key to look for. It leverages
 `config.redirect` or `envs[0].redirect`. Unsuccessful queries are ignored.
 
 #### options.frontmatter.redirectTo
-
-A string to be used as destination.
-
-#### options.markdown.redirectTo.keep
-
-Type: `boolean`
-Default: `false`
-
-Whether the Markdown files should be kept after a redirection have been
-extracted from their frontmatter. They are not kept by default.
-
-#### options.frontmatter.redirectTo.path
 
 Type: `string`
 Default: `"redirectTo"`

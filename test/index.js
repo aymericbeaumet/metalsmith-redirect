@@ -19,7 +19,7 @@ test.cb('metalsmith-redirect should default to no redirections', t => {
   const plugin = metalsmithRedirect()
   const files = {}
   plugin(files, null, () => {
-    t.deepEqual(Object.keys(files).length, 0)
+    t.is(Object.keys(files).length, 0)
     t.end()
   })
 })
@@ -28,13 +28,13 @@ test.cb(
   'metalsmith-redirect should use the redirections passed as the options',
   t => {
     t.plan(3)
-    const plugin = metalsmithRedirect({ redirections: { a: 'b' } })
+    const plugin = metalsmithRedirect({ a: 'b' })
     const files = {}
     plugin(files, null, () => {
       t.is(Object.keys(files).length, 1)
       const contents = files['a/index.html'].contents.toString()
       t.true(isValidHTML(contents))
-      t.deepEqual(
+      t.is(
         contents,
         `<!DOCTYPE html>
 <html>
@@ -56,13 +56,13 @@ test.cb(
 
 test.cb('metalsmith-redirect should escape the urls', t => {
   t.plan(3)
-  const plugin = metalsmithRedirect({ redirections: { a: `'"'"` } })
+  const plugin = metalsmithRedirect({ a: `'"'"` })
   const files = {}
   plugin(files, null, () => {
     t.is(Object.keys(files).length, 1)
     const contents = files['a/index.html'].contents.toString()
     t.true(isValidHTML(contents))
-    t.deepEqual(
+    t.is(
       contents,
       `<!DOCTYPE html>
 <html>
@@ -83,16 +83,13 @@ test.cb('metalsmith-redirect should escape the urls', t => {
 
 test.cb('metalsmith-redirect should support to preserve the hash', t => {
   t.plan(3)
-  const plugin = metalsmithRedirect({
-    redirections: { a: 'b' },
-    preserveHash: true,
-  })
+  const plugin = metalsmithRedirect({ a: 'b' }, { preserveHash: true })
   const files = {}
   plugin(files, null, () => {
     t.is(Object.keys(files).length, 1)
     const contents = files['a/index.html'].contents.toString()
     t.true(isValidHTML(contents))
-    t.deepEqual(
+    t.is(
       contents,
       `<!DOCTYPE html>
 <html>
@@ -107,6 +104,40 @@ test.cb('metalsmith-redirect should support to preserve the hash', t => {
 </html>
 `
     )
+    t.end()
+  })
+})
+
+test.cb('metalsmith-redirect should support redirectFrom', t => {
+  t.plan(3)
+  const plugin = metalsmithRedirect(null, { frontmatter: true })
+  const files = {
+    'about-me': {
+      redirectFrom: 'about',
+    },
+  }
+  plugin(files, null, () => {
+    t.is(Object.keys(files).length, 2)
+    const contents = files['about/index.html'].contents.toString()
+    t.true(isValidHTML(contents))
+    t.true(contents.includes('/about-me'))
+    t.end()
+  })
+})
+
+test.cb('metalsmith-redirect should support redirectTo', t => {
+  t.plan(3)
+  const plugin = metalsmithRedirect(null, { frontmatter: true })
+  const files = {
+    about: {
+      redirectTo: 'about-me',
+    },
+  }
+  plugin(files, null, () => {
+    t.is(Object.keys(files).length, 1)
+    const contents = files['about/index.html'].contents.toString()
+    t.true(isValidHTML(contents))
+    t.true(contents.includes('/about-me'))
     t.end()
   })
 })

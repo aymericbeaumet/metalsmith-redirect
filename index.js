@@ -1,6 +1,8 @@
 const path = require('path')
 const _ = require('lodash')
 const normalize = require('./lib/normalize')
+const createRedirectionsFromArg = require('./lib/create-redirections-from-arg')
+const createRedirectionsFromFrontmatters = require('./lib/create-redirections-from-frontmatters')
 
 function escapeSingleQuotes(str) {
   return str.replace(/'/g, `\\'`)
@@ -10,16 +12,26 @@ function escapeDoubleQuotes(str) {
   return str.replace(/"/g, `\\"`)
 }
 
-module.exports = (options = {}) => {
-  const { redirections = {} } = options
-
-  const preserveHash = options.preserveHash && {
-    timeout: 1,
-    ...(_.isObject(options.preserveHash) ? options.preserveHash : {}),
-  }
+module.exports = (redirections = {}, options = {}) => {
+  const preserveHash = options.preserveHash
+    ? {
+        timeout: 1,
+        ...(_.isObject(options.preserveHash) ? options.preserveHash : {}),
+      }
+    : null
 
   return (files, _metalsmith, done) => {
-    for (const [source, destination] of Object.entries(redirections)) {
+    const argRedirections = redirections
+      ? createRedirectionsFromArg(redirections || null)
+      : []
+    const frontmattersRedirections = options.frontmatter
+      ? createRedirectionsFromFrontmatters(files, options.frontmatter)
+      : []
+
+    for (const { source, destination } of [
+      ...argRedirections,
+      ...frontmattersRedirections,
+    ]) {
       // Normalize the source and the destination
       const normalizedSource = normalize(source)
         .appendHTMLIndexIfNeeded()
