@@ -111,6 +111,39 @@ test.cb('metalsmith-redirect should support to preserve the hash', t => {
   })
 })
 
+test.cb(
+  'metalsmith-redirect should support to preserve the hash with a custom timeout',
+  t => {
+    t.plan(3)
+    const plugin = metalsmithRedirect({
+      redirections: { a: 'b' },
+      preserveHash: { timeout: 3 },
+    })
+    const files = {}
+    plugin(files, null, () => {
+      t.is(Object.keys(files).length, 1)
+      const contents = files['a/index.html'].contents.toString()
+      t.true(isValidHTML(contents))
+      t.is(
+        contents,
+        `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex">
+    <meta http-equiv="refresh" content="3;url=/a/b">
+    <link rel="canonical" href="/a/b">
+    <script>window.location.replace('/a/b' + window.location.hash);</script>
+  </head>
+  <body>This page has been moved to <a href="/a/b">/a/b</a></body>
+</html>
+`
+      )
+      t.end()
+    })
+  }
+)
+
 test.cb('metalsmith-redirect should support redirectFrom as a string', t => {
   t.plan(3)
   const plugin = metalsmithRedirect({ frontmatter: true })
