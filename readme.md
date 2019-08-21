@@ -1,5 +1,3 @@
-<center>
-
 # metalsmith-redirect
 
 [![npm](https://img.shields.io/npm/v/metalsmith-redirect?style=flat-square)](https://www.npmjs.com/package/metalsmith-redirect)
@@ -8,9 +6,12 @@
 [![Issues](https://img.shields.io/github/issues/aymericbeaumet/metalsmith-redirect?style=flat-square)](https://github.com/aymericbeaumet/metalsmith-redirect/issues)
 [![License](https://img.shields.io/github/license/aymericbeaumet/metalsmith-redirect?style=flat-square)](https://github.com/aymericbeaumet/metalsmith-redirect/blob/master/license)
 
-</center>
+This plugins enables you to create HTTP redirections in your [Metalsmith](https://metalsmith.io/) website. There are several ways to do so:
 
-This plugins enables you to create HTTP redirections in your [Metalsmith](https://metalsmith.io/) website.
+- in the plugin configuration (see
+  [`options.redirections`](#optionsredirections))
+- in your source frontmatters via the `redirectFrom` and `redirectTo` keys
+  (see [`options.frontmatter`](#optionsfrontmatter))
 
 ## Install
 
@@ -309,8 +310,8 @@ Let's consider the following configuration:
 
 The following redirections would be created:
 
-| source             | destination                  |
-| ------------------ | ---------------------------- |
-| /foo/index.html    | /foo/hidden.html             |
-| /foo/bar.html      | /foo/baz                     |
-| /github/index.html | https://github.com/segmentio |
+| source               | destination                    |
+| -------------------- | ------------------------------ |
+| `/foo/index.html`    | `/foo/hidden.html`             |
+| `/foo/bar.html`      | `/foo/baz`                     |
+| `/github/index.html` | `https://github.com/segmentio` |
