@@ -22,11 +22,6 @@ npm install metalsmith-redirect
 
 ### CLI
 
-You can pass any options you would like in the _metalsmith.json_
-configuration file at the key `plugins["metalsmith-redirect"]`. See the
-[API](#api) section for more information regarding the possible options you
-can give to this plugin.
-
 _metalsmith.json_
 
 ```json
@@ -43,9 +38,6 @@ _metalsmith.json_
 ```
 
 ### Node.js
-
-For more complex use-cases, Metalsmith exposes a [JavaScript
-API](https://github.com/segmentio/metalsmith#api):
 
 ```javascript
 const metalsmith = require('metalsmith')
