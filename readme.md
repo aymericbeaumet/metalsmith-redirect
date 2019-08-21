@@ -117,10 +117,10 @@ metalsmith(__dirname).use(
 Type: `boolean | Object`
 Default: `false`
 
-By setting this options to `true`, you will enable the collections of
-redirections from frontmatters. This feature is convenient to keep the
-redirections close to the code. You can also pass an object instead, which
-has the advantage to allow to set all the options individually.
+By setting this options to `true`, this plugin will gather redirections from
+frontmatters. This feature is convenient to keep the redirections close to
+the code. You can also pass an object instead, which has the advantage to
+allow to set all the options individually.
 
 <details><summary>Example: redirect from another page</summary>
 
