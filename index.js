@@ -22,7 +22,7 @@ module.exports = (options = {}) => {
 
   return (files, _metalsmith, done) => {
     const argRedirections = options.redirections
-      ? createRedirectionsFromArg(options.redirections || null)
+      ? createRedirectionsFromArg(options.redirections)
       : []
     const frontmattersRedirections = options.frontmatter
       ? createRedirectionsFromFrontmatters(files, options.frontmatter)
