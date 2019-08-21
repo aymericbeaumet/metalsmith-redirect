@@ -133,10 +133,23 @@ _/photos/index.html_
 ---
 redirectFrom: /images
 ---
+```
 
-<html>
-  <!--- ... -->
-</html>
+</details>
+
+<details><summary>Example: redirect from several pages</summary>
+
+It is also possible to create redirections from several pages by passing a
+list to `redirectFrom`:
+
+_/photos/index.html_
+
+```html
+---
+redirectFrom:
+  - /images
+  - /pictures
+---
 ```
 
 </details>
