@@ -6,10 +6,9 @@ const rimraf = require('rimraf')
 const test = require('ava')
 const metalsmithRedirect = require('..')
 
-// Define the build path
 const build = path.join(__dirname, 'build')
-
-// And make sure it's being cleaned after each build
+// Make sure the build is cleaned before/after each test
+test.beforeEach.cb(t => rimraf(build, t.end))
 test.afterEach.always.cb(t => rimraf(build, t.end))
 
 // https://github.com/aymericbeaumet/metalsmith-redirect/issues/10
