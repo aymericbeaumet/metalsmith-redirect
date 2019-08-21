@@ -4,28 +4,52 @@
   "description": "A Metalsmith plugin to create HTTP redirections",
   "keywords": [
     "metalsmith",
-    "plugin"
+    "metalsmith-plugin",
+    "plugin",
+    "redirect"
   ],
-  "author": "Aymeric Beaumet <aymeric@beaumet.me>",
-  "license": "CC0-1.0",
-  "main": "lib",
-  "dependencies": {},
-  "devDependencies": {
-    "ava": "0.15.0",
-    "codeclimate-test-reporter": "0.3.1",
-    "gulp": "3.9.1",
-    "gulpsmith": "0.5.5",
-    "metalsmith": "2.1.0",
-    "nyc": "6.4.4",
-    "rimraf": "2.5.2",
-    "standard": "7.1.0"
-  },
-  "scripts": {
-    "test": "standard && nyc --reporter=html --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 ava",
-    "codeclimate": "nyc report --reporter=text-lcov | codeclimate-test-reporter"
-  },
+  "homepage": "https://github.com/aymericbeaumet/metalsmith-redirect",
   "repository": {
     "type": "git",
     "url": "https://github.com/aymericbeaumet/metalsmith-redirect.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Aymeric Beaumet",
+    "email": "hi@aymericbeaumet.com",
+    "url": "https://aymericbeaumet.com"
+  },
+  "files": [
+    "index.js",
+    "lib/*"
+  ],
+  "scripts": {
+    "format": "prettier --write \"{,.}**.{js,md,yml}\" && xo --fix",
+    "test": "prettier --check \"{,.}**.{js,md,yml}\" && xo && ava"
+  },
+  "xo": {
+    "prettier": true
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "semi": false,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "ava": "2.3.0",
+    "gulp": "4.0.2",
+    "gulpsmith": "0.6.0",
+    "htmlparser2": "4.0.0",
+    "metalsmith": "2.3.0",
+    "prettier": "1.18.2",
+    "rimraf": "3.0.0",
+    "xo": "0.24.0"
   }
 }

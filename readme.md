@@ -1,141 +1,329 @@
-[![NPM version](https://img.shields.io/npm/v/metalsmith-redirect.svg?style=flat&label=npm)](https://www.npmjs.com/package/metalsmith-redirect)
-[![Linux build status](https://img.shields.io/travis/aymericbeaumet/metalsmith-redirect/master.svg?style=flat&label=linux)](https://travis-ci.org/aymericbeaumet/metalsmith-redirect)
-[![Windows build status](https://img.shields.io/appveyor/ci/aymericbeaumet/metalsmith-redirect/master.svg?style=flat&label=windows)](https://ci.appveyor.com/project/aymericbeaumet/metalsmith-redirect)
-[![Code coverage](https://img.shields.io/codeclimate/coverage/github/aymericbeaumet/metalsmith-redirect.svg?style=flat&label=coverage)](https://codeclimate.com/github/aymericbeaumet/metalsmith-redirect)
-[![GPA](https://img.shields.io/codeclimate/github/aymericbeaumet/metalsmith-redirect.svg?style=flat&label=GPA)](https://codeclimate.com/github/aymericbeaumet/metalsmith-redirect)
-[![Dependencies status](https://img.shields.io/david/aymericbeaumet/metalsmith-redirect.svg?style=flat&label=dependencies)](https://david-dm.org/aymericbeaumet/metalsmith-redirect)
-
 # metalsmith-redirect
 
-A Metalsmith plugin to create HTTP redirections.
+[![npm](https://img.shields.io/npm/v/metalsmith-redirect?style=flat-square)](https://www.npmjs.com/package/metalsmith-redirect)
+[![Build](https://img.shields.io/travis/aymericbeaumet/metalsmith-redirect?style=flat-square)](https://travis-ci.org/aymericbeaumet/metalsmith-redirect)
+[![Dependencies](https://img.shields.io/david/aymericbeaumet/metalsmith-redirect?style=flat-square)](https://david-dm.org/aymericbeaumet/metalsmith-redirect)
+[![Issues](https://img.shields.io/github/issues/aymericbeaumet/metalsmith-redirect?style=flat-square)](https://github.com/aymericbeaumet/metalsmith-redirect/issues)
 
-## Installation
+This plugins enables you to create HTTP redirections in your [Metalsmith](https://metalsmith.io/) website. There are several ways to do so:
 
-```javascript
-$ npm install metalsmith-redirect
+- in the plugin configuration (see
+  [`options.redirections`](#optionsredirections))
+- in your source frontmatters via the `redirectFrom` and `redirectTo` keys
+  (see [`options.frontmatter`](#optionsfrontmatter))
+
+## Install
+
+```shell
+npm install metalsmith-redirect
 ```
 
 ## Usage
 
 ### CLI
 
-```javascript
+You can pass any options you would like in the _metalsmith.json_
+configuration file at the key `plugins["metalsmith-redirect"]`. See the
+[API](#api) section for more information regarding the possible options you
+can give to this plugin.
+
+_metalsmith.json_
+
+```json
 {
   "plugins": {
     "metalsmith-redirect": {
-      "/from/foo.html": "/to/bar.html"
+      "redirections": {
+        "/about": "/about-me",
+        "/images": "/search?kind=image"
+      }
     }
   }
 }
 ```
 
-### JavaScript
+### Node.js
+
+For more complex use-cases, Metalsmith exposes a [JavaScript
+API](https://github.com/segmentio/metalsmith#api):
 
 ```javascript
-var MetalSmith = require('metalsmith');
-var redirect = require('metalsmith-redirect');
+const metalsmith = require('metalsmith')
+const metalsmithRedirect = require('metalsmith-redirect')
 
-Metalsmith(__dirname)
-  .use(redirect({
-    '/foo': '/img/foo.png',
-    '/bar.html': '/img/'
-  }))
+metalsmith(__dirname).use(
+  metalsmithRedirect({
+    redirections: {
+      '/about': '/about-me',
+      '/images': '/search?kind=image',
+    },
+  })
+)
 ```
 
-This plugin can be configured by passing an object. Each key/value will be used
-to create a redirection. Each key corresponds to the source and the associated
-value to the destination.
+## API
 
-Due to restrictions in the way this plugin proceeds, the source must be either:
-- a HTML file path
-- a folder path, in such a case '/index.html' will be appended
+Notes:
 
-The destination can be any kind of path.
+- Due to restrictions due to the client-side implementation, the **source**
+  must either be an HTML file, or a folder (in which case `'/index.html'` will
+  be appended)
+- The **destination** can be any kind of path
+- A relative path in the **source** will be resolved based on the site root `'/'`
+- A relative path in the **destination** will be resolved based on the **source** directory
 
-A relative path in the source will be resolved from '/'.
+### metalsmithRedirect(options)
 
-A relative path in the destination will be resolved from the source directory.
+#### options
 
-## Examples
+Type: `Object`
+Default: `{}`
 
-Some examples of user configurations and how they are resolved by this plugin.
-For each example, the first object is the user configuration, and the second
-object is what is resolved by the plugin.
+#### options.redirections
 
+Type: `Object`
+Default: `{}`
+
+Each key value pair from the object will be used to create a redirection,
+where each key corresponds to the **source** url and its associated value to
+the **destination** url.
+
+<details><summary>Example</summary>
+
+In this piece of code we create two redirections:
+
+1. from `/about` to `/about-me`
+2. from `/images` to `/search?kind=image`
 
 ```javascript
-{ 'foo': 'hidden.html' }
-{ '/foo/index.html': '/foo/hidden.html' }
+const metalsmith = require('metalsmith')
+const metalsmithRedirect = require('metalsmith-redirect')
+
+metalsmith(__dirname).use(
+  metalsmithRedirect({
+    redirections: {
+      '/about': '/about-me',
+      '/images': '/search?kind=image',
+    },
+  })
+)
 ```
+
+</details>
+
+#### options.frontmatter
+
+Type: `boolean | Object`
+Default: `false`
+
+By setting this options to `true`, this plugin will gather redirections from
+frontmatters. This feature is convenient to keep the redirections close to
+the code. You can also pass an object instead, which has the advantage to
+allow to set all the options individually.
+
+<details><summary>Example: redirect from another page</summary>
+
+Let's consider you have a file `/photos/index.html`, if you want to create a
+redirection _from_ `/images`, you would update its frontmatter in this
+fashion:
+
+_/photos/index.html_
+
+```html
+---
+redirectFrom: /images
+---
+```
+
+</details>
+
+<details><summary>Example: redirect from several pages</summary>
+
+It is also possible to create redirections from several pages by passing a
+list to `redirectFrom`:
+
+_/photos/index.html_
+
+```html
+---
+redirectFrom:
+  - /images
+  - /pictures
+---
+```
+
+</details>
+
+<details><summary>Example: redirect to another page</summary>
+
+Let's consider you have a file `/about.md`, if you want to create a
+redirection to `/about-me`, you would update its frontmatter in this fashion:
+
+_/about.md_
+
+```markdown
+---
+redirectTo: /about-me
+---
+```
+
+</details>
+
+#### options.frontmatter.redirectFrom
+
+Type: `string`
+Default: `"redirectFrom"`
+
+The _redirectFrom_ path to search for in the frontmatters. It leverages
+[`_.get`](https://lodash.com/docs#get), so you can perform queries like:
+`config.redirectFrom` or `envs[0].redirectFrom`.
+
+<details><summary>Example</summary>
+
+Let's say I like to keep things tidied up and I want to scope all my plugin
+configuration under the `config` key, this is how it is possible to instruct
+the plugin to do so:
 
 ```javascript
-{ '/foo/bar.html': 'baz' }
-{ '/foo/bar.html': '/foo/baz' }
+const metalsmith = require('metalsmith')
+const metalsmithRedirect = require('metalsmith-redirect')
+
+metalsmith(__dirname).use(
+  metalsmithRedirect({
+    frontmatter: {
+      redirectFrom: 'config.redirectFrom',
+    },
+  })
+)
 ```
+
+The plugin will then look for this key in any of the frontmatters:
+
+```markdown
+---
+config:
+  redirectFrom: /about
+---
+```
+
+</details>
+
+#### options.frontmatter.redirectTo
+
+Type: `string`
+Default: `"redirectTo"`
+
+The _redirectTo_ path to search for in the frontmatters. It leverages
+[`_.get`](https://lodash.com/docs#get), so you can perform queries like:
+`config.redirectTo` or `envs[0].redirectTo`.
+
+<details><summary>Example</summary>
+
+Let's say I like to keep things tidied up and I want to scope all my plugin
+configuration under the `config` key, this is how it is possible to instruct the plugin to do so:
 
 ```javascript
-// It is possible to do external redirections.
-{ '/github': 'https://github.com/segmentio' }
-{ '/github/index.html': 'https://github.com/segmentio' }
+const metalsmith = require('metalsmith')
+const metalsmithRedirect = require('metalsmith-redirect')
+
+metalsmith(__dirname).use(
+  metalsmithRedirect({
+    frontmatter: {
+      redirectTo: 'config.redirectTo',
+    },
+  })
+)
 ```
+
+The plugin will then look for this key in any of the frontmatters:
+
+```markdown
+---
+config:
+  redirectTo: /about-me
+---
+```
+
+</details>
+
+#### options.preserveHash
+
+Type: `boolean | Object`
+Default: `false`
+
+This option allows to preserve the hash while navigating from the source to the destination url.
+
+For example if you redirect `/a` to `/b`, a visitor currently at
+`/a#comments` will be redirected to `/b#comments`.
+
+Note: this feature will optimistically try to leverage JavaScript to redirect
+the user, as this is the only way to access the location hash. This will work
+in most cases, but for some users with JavaScript disabled this means they
+could remain stuck. When this happens it should fallback to the html meta
+redirection (which cannot preserve the hashes due to its static nature).
+
+<details><summary>Example</summary>
 
 ```javascript
-// A Markdown file is not a valid source
-{ 'foo.md': 'hidden.html' } // throw error
+const metalsmith = require('metalsmith')
+const metalsmithRedirect = require('metalsmith-redirect')
+
+metalsmith(__dirname).use(
+  metalsmithRedirect({
+    preserveHash: true,
+  })
+)
 ```
 
-## Changelog
+</details>
 
-* 2.1.0
-  * `contents` key is now a `Buffer`
-    (https://github.com/aymericbeaumet/metalsmith-redirect/issues/10)
-  * bump dev dependencies
+#### options.preserveHash.timeout
 
-* 2.0.1
-  * Switch test suite to nyc + ava
+Type: `number`
+Default: `1`
 
-* 2.0.0
-  * Only support Node.js 4+
-  * Drop the jade dependency in favor of the ES.next template strings
+The number of second(s) after which the fallback should redirect the user
+when hash preservation is enabled.
 
-* 1.3.1
-  * Lightweight npm-shrinkwrap
+<details><summary>Example</summary>
 
-* 1.3.0
-  * Bump dependencies
+```javascript
+const metalsmith = require('metalsmith')
+const metalsmithRedirect = require('metalsmith-redirect')
 
-* 1.2.0
-  * HTML meta redirection occurs immediately
+metalsmith(__dirname).use(
+  metalsmithRedirect({
+    preserveHash: { timeout: 2 },
+  })
+)
+```
 
-* 1.1.0
-  * `jade@1.11.0`
-  * `metalsmith@1.7.0`
-  * `metalsmith-templates@0.7.0`
-  * `underscore@1.8.3`
+</details>
 
-* 1.0.2
-  * The Jade template now produces valid HTML (the doctype was missing)
+## FAQ
 
-* 1.0.1
-  * Strip leading slash to support latest Metalsmith major release (`1.0.0`)
+> Can you give some example of the redirection algorithm?
 
-* 1.0.0
-  * Bump stable
+Let's consider the following configuration:
 
-* 0.0.3
-  * Now use `rel=canonical` in the redirection template
+```json
+{
+  "plugins": {
+    "metalsmith-redirect": {
+      "redirections": {
+        "foo": "hidden.html",
+        "/foo/bar.html": "baz",
+        "/github": "https://github.com/segmentio"
+      }
+    }
+  }
+}
+```
 
-* 0.0.2
-  * Automatic NPM deployment from Travis
-  * Fix the normalize.relativeTo() method
+The following redirections would be created:
 
-* 0.0.1
-  * Internal redirections (both absolute and relative)
-  * External redirections (toward other websites)
-
-## License
-
-[![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)](http://creativecommons.org/publicdomain/zero/1.0/)
-
-To the extent possible under law, [Aymeric Beaumet](https://aymericbeaumet.com)
-has waived all copyright and related or neighboring rights to this work.
+| source               | destination                    |
+| -------------------- | ------------------------------ |
+| `/foo/index.html`    | `/foo/hidden.html`             |
+| `/foo/bar.html`      | `/foo/baz`                     |
+| `/github/index.html` | `https://github.com/segmentio` |

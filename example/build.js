@@ -1,10 +1,20 @@
-'use strict'
+#!/usr/bin/env node
 
-var Metalsmith = require('metalsmith')
-var redirect = require('../lib') // require('metalsmith-redirect')
+const metalsmith = require('metalsmith')
+const metalsmithRedirect = require('..')
 
-Metalsmith(__dirname)
-  .use(redirect({
-    '/github': 'https://github.com'
-  }))
-  .build(function (error) { if (error) { throw error } })
+metalsmith(__dirname)
+  .use(
+    metalsmithRedirect({
+      redirections: {
+        '/github': 'https://github.com',
+      },
+      frontmatter: true,
+      preserveHash: { timeout: 2 },
+    })
+  )
+  .build(error => {
+    if (error) {
+      throw error
+    }
+  })
