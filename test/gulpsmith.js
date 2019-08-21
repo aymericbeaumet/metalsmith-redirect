@@ -17,7 +17,13 @@ test.serial.cb('metalsmith-redirect should work with gulp and gulpsmith', t => {
   t.plan(2)
   gulp
     .src('*')
-    .pipe(gulpsmith().use(metalsmithRedirect({ '/foo': '/bar' })))
+    .pipe(
+      gulpsmith().use(
+        metalsmithRedirect({
+          redirections: { '/foo': '/bar' },
+        })
+      )
+    )
     .pipe(gulp.dest(build))
     .once('end', () => {
       fs.readFile(path.join(build, 'foo/index.html'), (error, data) => {

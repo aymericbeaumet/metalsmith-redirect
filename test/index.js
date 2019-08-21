@@ -28,7 +28,7 @@ test.cb(
   'metalsmith-redirect should use the redirections passed as the options',
   t => {
     t.plan(3)
-    const plugin = metalsmithRedirect({ a: 'b' })
+    const plugin = metalsmithRedirect({ redirections: { a: 'b' } })
     const files = {}
     plugin(files, null, () => {
       t.is(Object.keys(files).length, 1)
@@ -56,7 +56,7 @@ test.cb(
 
 test.cb('metalsmith-redirect should escape the urls', t => {
   t.plan(3)
-  const plugin = metalsmithRedirect({ a: `'"'"` })
+  const plugin = metalsmithRedirect({ redirections: { a: `'"'"` } })
   const files = {}
   plugin(files, null, () => {
     t.is(Object.keys(files).length, 1)
@@ -83,7 +83,10 @@ test.cb('metalsmith-redirect should escape the urls', t => {
 
 test.cb('metalsmith-redirect should support to preserve the hash', t => {
   t.plan(3)
-  const plugin = metalsmithRedirect({ a: 'b' }, { preserveHash: true })
+  const plugin = metalsmithRedirect({
+    redirections: { a: 'b' },
+    preserveHash: true,
+  })
   const files = {}
   plugin(files, null, () => {
     t.is(Object.keys(files).length, 1)
@@ -110,7 +113,7 @@ test.cb('metalsmith-redirect should support to preserve the hash', t => {
 
 test.cb('metalsmith-redirect should support redirectFrom as a string', t => {
   t.plan(3)
-  const plugin = metalsmithRedirect(null, { frontmatter: true })
+  const plugin = metalsmithRedirect({ frontmatter: true })
   const files = {
     '/about/index.html': {
       redirectFrom: '/about-bar',
@@ -130,7 +133,7 @@ test.cb('metalsmith-redirect should support redirectFrom as a string', t => {
 
 test.cb('metalsmith-redirect should support redirectFrom as an array', t => {
   t.plan(4)
-  const plugin = metalsmithRedirect(null, { frontmatter: true })
+  const plugin = metalsmithRedirect({ frontmatter: true })
   const files = {
     '/about/index.html': {
       redirectFrom: ['/about-bar', '/about-foo'],
@@ -157,7 +160,7 @@ test.cb(
   'metalsmith-redirect should support redirectFrom with a custom key',
   t => {
     t.plan(3)
-    const plugin = metalsmithRedirect(null, {
+    const plugin = metalsmithRedirect({
       frontmatter: { redirectFrom: 'nested[0].from' },
     })
     const files = {
@@ -180,7 +183,7 @@ test.cb(
 
 test.cb('metalsmith-redirect should support redirectTo as a string', t => {
   t.plan(2)
-  const plugin = metalsmithRedirect(null, { frontmatter: true })
+  const plugin = metalsmithRedirect({ frontmatter: true })
   const files = {
     '/about-bar': {
       redirectTo: '/about/index.html',
@@ -201,7 +204,7 @@ test.cb(
   'metalsmith-redirect should support redirectTo with a custom key',
   t => {
     t.plan(2)
-    const plugin = metalsmithRedirect(null, {
+    const plugin = metalsmithRedirect({
       frontmatter: { redirectTo: 'nested[0].to' },
     })
     const files = {

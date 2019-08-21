@@ -12,7 +12,7 @@ function escapeDoubleQuotes(str) {
   return str.replace(/"/g, `\\"`)
 }
 
-module.exports = (redirections = {}, options = {}) => {
+module.exports = (options = {}) => {
   const preserveHash = options.preserveHash
     ? {
         timeout: 1,
@@ -21,8 +21,8 @@ module.exports = (redirections = {}, options = {}) => {
     : null
 
   return (files, _metalsmith, done) => {
-    const argRedirections = redirections
-      ? createRedirectionsFromArg(redirections || null)
+    const argRedirections = options.redirections
+      ? createRedirectionsFromArg(options.redirections || null)
       : []
     const frontmattersRedirections = options.frontmatter
       ? createRedirectionsFromFrontmatters(files, options.frontmatter)
