@@ -2,7 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/metalsmith-redirect?style=flat-square)](https://www.npmjs.com/package/metalsmith-redirect)
 [![Build](https://img.shields.io/travis/aymericbeaumet/metalsmith-redirect?style=flat-square)](https://travis-ci.org/aymericbeaumet/metalsmith-redirect)
-[![Dependencies](https://img.shields.io/david/aymericbeaumet/metalsmith-redirect?style=flat-square)](https://david-dm.org/aymericbeaumet/metalsmith-redirect)
 [![Issues](https://img.shields.io/github/issues/aymericbeaumet/metalsmith-redirect?style=flat-square)](https://github.com/aymericbeaumet/metalsmith-redirect/issues)
 
 This plugins enables you to create HTTP redirections in your [Metalsmith](https://metalsmith.io/) website. There are several ways to do so:
