@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-redirect",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "A Metalsmith plugin to create HTTP redirections",
   "keywords": [
     "metalsmith",
