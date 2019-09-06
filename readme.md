@@ -4,7 +4,9 @@
 [![github](https://img.shields.io/github/issues/aymericbeaumet/metalsmith-redirect?style=flat-square&logo=github)](https://github.com/aymericbeaumet/metalsmith-redirect/issues)
 [![npm](https://img.shields.io/npm/v/metalsmith-redirect?style=flat-square&logo=npm)](https://www.npmjs.com/package/metalsmith-redirect)
 
-This plugins enables you to create HTTP redirections in your [Metalsmith](https://metalsmith.io/) website. There are several ways to do so:
+This plugins enables you to create HTTP redirections in your
+[Metalsmith](https://metalsmith.io/) website. There are several ways to do
+so:
 
 - in the plugin configuration (see
   [`options.redirections`](#optionsredirections))
@@ -56,12 +58,14 @@ metalsmith(__dirname).use(
 
 Notes:
 
-- Due to restrictions due to the client-side implementation, the **source**
+- Due to restrictions in the client-side implementation, the **source**
   must either be an HTML file, or a folder (in which case `'/index.html'` will
   be appended)
 - The **destination** can be any kind of path
 - A relative path in the **source** will be resolved based on the site root `'/'`
 - A relative path in the **destination** will be resolved based on the **source** directory
+- It is best to place this plugin in the latest position, so that the paths
+  it is dealing with have already been altered by the other plugins
 
 ### metalsmithRedirect(options)
 
@@ -109,8 +113,7 @@ Default: `false`
 
 By setting this options to `true`, this plugin will gather redirections from
 frontmatters. This feature is convenient to keep the redirections close to
-the code. You can also pass an object instead, which has the advantage to
-allow to set all the options individually.
+the code. You can also pass an object instead, see below for the nested options.
 
 <details><summary>Example: redirect from another page</summary>
 
@@ -120,7 +123,7 @@ fashion:
 
 _/photos/index.html_
 
-```html
+```markdown
 ---
 redirectFrom: /images
 ---
@@ -135,7 +138,7 @@ list to `redirectFrom`:
 
 _/photos/index.html_
 
-```html
+```markdown
 ---
 redirectFrom:
   - /images
@@ -188,7 +191,8 @@ metalsmith(__dirname).use(
 )
 ```
 
-The plugin will then look for this key in any of the frontmatters:
+The plugin will then look for the `config.redirectFrom` key in any of the
+frontmatters, like this one:
 
 ```markdown
 ---
@@ -226,7 +230,8 @@ metalsmith(__dirname).use(
 )
 ```
 
-The plugin will then look for this key in any of the frontmatters:
+The plugin will then look for the `config.redirectTo` key in any of the
+frontmatters, like this one:
 
 ```markdown
 ---
@@ -303,7 +308,7 @@ Let's consider the following configuration:
     "metalsmith-redirect": {
       "redirections": {
         "foo": "hidden.html",
-        "/foo/bar.html": "baz",
+        "/foo/bar.html": "/baz",
         "/github": "https://github.com/segmentio"
       }
     }
@@ -316,5 +321,5 @@ The following redirections would be created:
 | source               | destination                    |
 | -------------------- | ------------------------------ |
 | `/foo/index.html`    | `/foo/hidden.html`             |
-| `/foo/bar.html`      | `/foo/baz`                     |
+| `/foo/bar.html`      | `/baz`                         |
 | `/github/index.html` | `https://github.com/segmentio` |
