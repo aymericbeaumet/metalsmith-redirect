@@ -148,17 +148,17 @@ test.cb('metalsmith-redirect should support redirectFrom as a string', t => {
   t.plan(3)
   const plugin = metalsmithRedirect({ frontmatter: true })
   const files = {
-    '/about/index.html': {
+    'about/index.html': {
       redirectFrom: '/about-bar',
     },
   }
   plugin(files, null, () => {
     t.is(Object.keys(files).length, 2)
-    t.true('/about/index.html' in files)
+    t.true('about/index.html' in files)
     t.true(
       files['about-bar/index.html'].contents
         .toString()
-        .includes('/about/index.html')
+        .includes('href="/about/index.html"')
     )
     t.end()
   })
@@ -168,22 +168,22 @@ test.cb('metalsmith-redirect should support redirectFrom as an array', t => {
   t.plan(4)
   const plugin = metalsmithRedirect({ frontmatter: true })
   const files = {
-    '/about/index.html': {
+    'about/index.html': {
       redirectFrom: ['/about-bar', '/about-foo'],
     },
   }
   plugin(files, null, () => {
     t.is(Object.keys(files).length, 3)
-    t.true('/about/index.html' in files)
+    t.true('about/index.html' in files)
     t.true(
       files['about-bar/index.html'].contents
         .toString()
-        .includes('/about/index.html')
+        .includes('href="/about/index.html"')
     )
     t.true(
       files['about-foo/index.html'].contents
         .toString()
-        .includes('/about/index.html')
+        .includes('href="/about/index.html"')
     )
     t.end()
   })
@@ -197,17 +197,17 @@ test.cb(
       frontmatter: { redirectFrom: 'nested[0].from' },
     })
     const files = {
-      '/about/index.html': {
+      'about/index.html': {
         nested: [{ from: '/about-bar' }],
       },
     }
     plugin(files, null, () => {
       t.is(Object.keys(files).length, 2)
-      t.true('/about/index.html' in files)
+      t.true('about/index.html' in files)
       t.true(
         files['about-bar/index.html'].contents
           .toString()
-          .includes('/about/index.html')
+          .includes('href="/about/index.html"')
       )
       t.end()
     })
@@ -218,8 +218,8 @@ test.cb('metalsmith-redirect should support redirectTo as a string', t => {
   t.plan(2)
   const plugin = metalsmithRedirect({ frontmatter: true })
   const files = {
-    '/about-bar': {
-      redirectTo: '/about/index.html',
+    'about-bar': {
+      redirectTo: '/about',
     },
   }
   plugin(files, null, () => {
@@ -227,7 +227,7 @@ test.cb('metalsmith-redirect should support redirectTo as a string', t => {
     t.true(
       files['about-bar/index.html'].contents
         .toString()
-        .includes('/about/index.html')
+        .includes('href="/about"')
     )
     t.end()
   })
@@ -241,7 +241,7 @@ test.cb(
       frontmatter: { redirectTo: 'nested[0].to' },
     })
     const files = {
-      '/about-bar': {
+      'about-bar': {
         nested: [{ to: '/about/index.html' }],
       },
     }
@@ -250,7 +250,7 @@ test.cb(
       t.true(
         files['about-bar/index.html'].contents
           .toString()
-          .includes('/about/index.html')
+          .includes('href="/about/index.html"')
       )
       t.end()
     })
