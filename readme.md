@@ -298,7 +298,7 @@ metalsmith(__dirname).use(
 
 ## FAQ
 
-> Can you give some example of the redirection algorithm?
+### Can you give some example of the redirection algorithm?
 
 Let's consider the following configuration:
 
@@ -324,8 +324,7 @@ The following redirections would be created:
 | `/foo/bar.html`      | `/baz`                         |
 | `/github/index.html` | `https://github.com/segmentio` |
 
-> Is this plugin compatible with
-> [metalsmith-broken-link-checker](https://github.com/davidxmoody/metalsmith-broken-link-checker)?
+### Is this plugin compatible with [metalsmith-broken-link-checker](https://github.com/davidxmoody/metalsmith-broken-link-checker)?
 
 _metalsmith-broken-link-checker_ will try to find dead links in your build.
 If you `.use()` it before you create the redirections, some dead links may be
