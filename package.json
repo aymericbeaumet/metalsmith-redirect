@@ -48,6 +48,7 @@
     "gulpsmith": "0.6.0",
     "htmlparser2": "4.0.0",
     "metalsmith": "2.3.0",
+    "metalsmith-broken-link-checker": "1.0.2",
     "prettier": "1.18.2",
     "rimraf": "3.0.0",
     "xo": "0.24.0"
