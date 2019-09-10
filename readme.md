@@ -323,3 +323,15 @@ The following redirections would be created:
 | `/foo/index.html`    | `/foo/hidden.html`             |
 | `/foo/bar.html`      | `/baz`                         |
 | `/github/index.html` | `https://github.com/segmentio` |
+
+> Is this plugin compatible with
+> [metalsmith-broken-link-checker](https://github.com/davidxmoody/metalsmith-broken-link-checker)?
+
+_metalsmith-broken-link-checker_ will try to find dead links in your build.
+If you `.use()` it before you create the redirections, some dead links may be
+detected as the redirections have not been created by _metalsmith-redirect_
+yet. But if you `.use()` it after _metalsmith-redirect_, it will be able to
+consider the redirections, thus avoiding false positives. You can have a look
+at these [functional
+tests](https://github.com/aymericbeaumet/metalsmith-redirect/blob/master/test/metalsmith-broken-link-checker)
+to see how the order in which the plugins are registered matters.
