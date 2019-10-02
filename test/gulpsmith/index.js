@@ -8,8 +8,12 @@ const metalsmithRedirect = require('../..')
 
 const build = path.join(__dirname, 'build')
 // Make sure the build is cleaned before/after each test
-test.beforeEach.cb(t => rimraf(build, t.end))
-test.afterEach.always.cb(t => rimraf(build, t.end))
+test.beforeEach.cb(t => {
+  rimraf(build, t.end)
+})
+test.afterEach.always.cb(t => {
+  rimraf(build, t.end)
+})
 
 // https://github.com/aymericbeaumet/metalsmith-redirect/issues/10
 
