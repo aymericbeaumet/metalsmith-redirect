@@ -79,7 +79,7 @@ test.cb(
   'normalize().appendHTMLIndexIfNeeded().get() should properly support protocols (http://, ...)',
   t => {
     t.plan(1)
-    t.deepEqual(
+    t.is(
       normalize('http://foobar')
         .appendHTMLIndexIfNeeded()
         .get(),

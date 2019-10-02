@@ -43,7 +43,7 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "ava": "2.3.0",
+    "ava": "2.4.0",
     "gulp": "4.0.2",
     "gulpsmith": "0.6.0",
     "htmlparser2": "4.0.0",
@@ -51,6 +51,6 @@
     "metalsmith-broken-link-checker": "1.0.2",
     "prettier": "1.18.2",
     "rimraf": "3.0.0",
-    "xo": "0.24.0"
+    "xo": "0.25.3"
   }
 }

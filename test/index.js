@@ -2,16 +2,10 @@ const test = require('ava')
 const htmlparser2 = require('htmlparser2')
 const metalsmithRedirect = require('..')
 
-function isValidHTML(html) {
-  try {
-    const parser = new htmlparser2.Parser()
-    parser.write(html)
-    parser.end()
-  } catch (error) {
-    return false
-  }
-
-  return true
+function parseHTML(html) {
+  const parser = new htmlparser2.Parser()
+  parser.write(html)
+  parser.end()
 }
 
 test.cb('metalsmith-redirect should default to no redirections', t => {
@@ -33,7 +27,7 @@ test.cb(
     plugin(files, null, () => {
       t.is(Object.keys(files).length, 1)
       const contents = files['a/index.html'].contents.toString()
-      t.true(isValidHTML(contents))
+      t.notThrows(() => parseHTML(contents))
       t.is(
         contents,
         `<!DOCTYPE html>
@@ -61,7 +55,7 @@ test.cb('metalsmith-redirect should escape the urls', t => {
   plugin(files, null, () => {
     t.is(Object.keys(files).length, 1)
     const contents = files['a/index.html'].contents.toString()
-    t.true(isValidHTML(contents))
+    t.notThrows(() => parseHTML(contents))
     t.is(
       contents,
       `<!DOCTYPE html>
@@ -91,7 +85,7 @@ test.cb('metalsmith-redirect should support to preserve the hash', t => {
   plugin(files, null, () => {
     t.is(Object.keys(files).length, 1)
     const contents = files['a/index.html'].contents.toString()
-    t.true(isValidHTML(contents))
+    t.notThrows(() => parseHTML(contents))
     t.is(
       contents,
       `<!DOCTYPE html>
@@ -123,7 +117,7 @@ test.cb(
     plugin(files, null, () => {
       t.is(Object.keys(files).length, 1)
       const contents = files['a/index.html'].contents.toString()
-      t.true(isValidHTML(contents))
+      t.notThrows(() => parseHTML(contents))
       t.is(
         contents,
         `<!DOCTYPE html>
