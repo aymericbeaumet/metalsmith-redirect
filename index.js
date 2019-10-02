@@ -1,6 +1,4 @@
-const path = require('path')
 const _ = require('lodash')
-const normalize = require('./lib/normalize')
 const createRedirectionsFromArg = require('./lib/create-redirections-from-arg')
 const createRedirectionsFromFrontmatters = require('./lib/create-redirections-from-frontmatters')
 
@@ -28,24 +26,10 @@ module.exports = (options = {}) => {
       ? createRedirectionsFromFrontmatters(files, options.frontmatter)
       : []
 
-    for (const { source, destination } of [
+    for (const { normalizedSource, normalizedDestination } of [
       ...argRedirections,
       ...frontmattersRedirections,
     ]) {
-      // Normalize the source and the destination
-      const normalizedSource = normalize(source)
-        .appendHTMLIndexIfNeeded()
-        .ensureHTML()
-        .relativeTo('/')
-        .get()
-      const normalizedDestination = normalize(destination)
-        .relativeTo(path.dirname(normalizedSource))
-        .get()
-
-      // Compute the filepath
-      const filepath = normalizedSource.substr(1)
-
-      // Render the view
       const contents = Buffer.from(`<!DOCTYPE html>
 <html>
   <head>
@@ -64,9 +48,7 @@ module.exports = (options = {}) => {
   )}">${normalizedDestination}</a></body>
 </html>
 `)
-
-      // Boom
-      files[filepath] = { contents }
+      files[_.trimStart(normalizedSource, '/')] = { contents }
     }
 
     done()
