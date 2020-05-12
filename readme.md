@@ -318,6 +318,8 @@ metalsmith(__dirname).use(
 )
 ```
 
+</details>
+
 ## FAQ
 
 ### Can you give some example of the redirection algorithm?
