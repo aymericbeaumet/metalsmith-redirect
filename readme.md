@@ -296,6 +296,30 @@ metalsmith(__dirname).use(
 
 </details>
 
+#### options.htmlExtensions
+
+Type: `string[]`
+Default: `[".html"]`
+
+A list of all file extensions that should be considered HTML files. When files
+do not end in one of these extensions, it will not be allowed to be used as a
+redirection source.
+
+<details><summary>Example</summary>
+
+```javascript
+const metalsmith = require('metalsmith')
+const metalsmithRedirect = require(`metalsmith-redirect')
+
+metalsmith(__dirname).use(
+  metalsmithRedirect({
+    htmlExtensions: [".htm", ".html"]
+  });
+)
+```
+
+</details>
+
 ## FAQ
 
 ### Can you give some example of the redirection algorithm?

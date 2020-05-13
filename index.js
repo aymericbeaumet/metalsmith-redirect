@@ -20,10 +20,10 @@ module.exports = (options = {}) => {
 
   return (files, _metalsmith, done) => {
     const argRedirections = options.redirections
-      ? createRedirectionsFromArg(options.redirections)
+      ? createRedirectionsFromArg(options.redirections, options)
       : []
     const frontmattersRedirections = options.frontmatter
-      ? createRedirectionsFromFrontmatters(files, options.frontmatter)
+      ? createRedirectionsFromFrontmatters(files, options)
       : []
 
     for (const { normalizedSource, normalizedDestination } of [
