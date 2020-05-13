@@ -309,12 +309,12 @@ redirection source.
 
 ```javascript
 const metalsmith = require('metalsmith')
-const metalsmithRedirect = require(`metalsmith-redirect')
+const metalsmithRedirect = require('metalsmith-redirect')
 
 metalsmith(__dirname).use(
   metalsmithRedirect({
-    htmlExtensions: [".htm", ".html"]
-  });
+    htmlExtensions: [".htm", ".html"],
+  })
 )
 ```
 
