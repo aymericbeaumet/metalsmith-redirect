@@ -121,6 +121,17 @@ test.cb(
 );
 
 test.cb(
+	'normalize().ensureHTML() should not throw if the extension has been whitelisted',
+	t => {
+		t.plan(1);
+		t.notThrows(
+			() => normalize('index.md').ensureHTML({htmlExtensions: ['.md']})
+		);
+		t.end();
+	}
+);
+
+test.cb(
 	'normalize().relativeTo().get() should return the destination path relative to the source',
 	t => {
 		/* Ref / relative dir / result */
