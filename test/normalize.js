@@ -121,6 +121,18 @@ test.cb(
 );
 
 test.cb(
+	'normalize().ensureHTML() should not be confused by extensions in middle of the filename',
+	t => {
+		t.plan(1);
+		t.throws(
+			() => normalize('index.html.md').ensureHTML(),
+			{message: / is not a valid HTML path$/}
+		);
+		t.end();
+	}
+);
+
+test.cb(
 	'normalize().ensureHTML() should not throw if the extension has been whitelisted',
 	t => {
 		t.plan(1);
