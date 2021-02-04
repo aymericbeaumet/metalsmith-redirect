@@ -1,5 +1,5 @@
 {
-  "name": "metalsmith-redirect",
+  "name": "@fidian/metalsmith-redirect",
   "version": "3.2.0",
   "description": "A Metalsmith plugin to create HTTP redirections",
   "keywords": [
@@ -8,10 +8,10 @@
     "plugin",
     "redirect"
   ],
-  "homepage": "https://github.com/aymericbeaumet/metalsmith-redirect",
+  "homepage": "https://github.com/fidian/metalsmith-redirect",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aymericbeaumet/metalsmith-redirect.git"
+    "url": "https://github.com/fidian/metalsmith-redirect.git"
   },
   "license": "MIT",
   "author": {
