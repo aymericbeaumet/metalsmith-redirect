@@ -1,6 +1,6 @@
 {
-  "name": "metalsmith-redirect",
-  "version": "3.1.0",
+  "name": "@fidian/metalsmith-redirect",
+  "version": "3.4.1",
   "description": "A Metalsmith plugin to create HTTP redirections",
   "keywords": [
     "metalsmith",
@@ -8,10 +8,10 @@
     "plugin",
     "redirect"
   ],
-  "homepage": "https://github.com/aymericbeaumet/metalsmith-redirect",
+  "homepage": "https://github.com/fidian/metalsmith-redirect",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aymericbeaumet/metalsmith-redirect.git"
+    "url": "https://github.com/fidian/metalsmith-redirect.git"
   },
   "license": "MIT",
   "author": {
@@ -24,21 +24,16 @@
     "lib/*"
   ],
   "scripts": {
-    "format": "xo --fix",
-    "test": "xo && ava"
+    "test": "ava"
   },
   "dependencies": {
-    "lodash": "4.17.19"
   },
   "devDependencies": {
-    "ava": "3.8.2",
-    "gulp": "4.0.2",
-    "gulpsmith": "0.6.0",
-    "htmlparser2": "4.1.0",
-    "metalsmith": "2.3.0",
-    "metalsmith-broken-link-checker": "1.0.2",
-    "prettier": "2.0.5",
-    "rimraf": "3.0.2",
-    "xo": "0.30.0"
+    "ava": "4.0.1",
+    "@fidian/metalsmith-broken-link-checker": "^1.1.1",
+    "gulp": "^4.0.2",
+    "gulpsmith": "^0.6.0",
+    "metalsmith": "2.4.2",
+    "rimraf": "3.0.2"
   }
 }

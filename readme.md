@@ -1,7 +1,7 @@
 # metalsmith-redirect
 
-[![travis](https://img.shields.io/travis/aymericbeaumet/metalsmith-redirect?style=flat-square&logo=travis)](https://travis-ci.org/aymericbeaumet/metalsmith-redirect)
-[![github](https://img.shields.io/github/issues/aymericbeaumet/metalsmith-redirect?style=flat-square&logo=github)](https://github.com/aymericbeaumet/metalsmith-redirect/issues)
+[![travis](https://img.shields.io/travis/fidian/metalsmith-redirect?style=flat-square&logo=travis)](https://travis-ci.org/fidian/metalsmith-redirect)
+[![github](https://img.shields.io/github/issues/fidian/metalsmith-redirect?style=flat-square&logo=github)](https://github.com/fidian/metalsmith-redirect/issues)
 [![npm](https://img.shields.io/npm/v/metalsmith-redirect?style=flat-square&logo=npm)](https://www.npmjs.com/package/metalsmith-redirect)
 
 This plugins enables you to create HTTP redirections in your
@@ -16,7 +16,7 @@ so:
 ## Install
 
 ```shell
-npm install metalsmith-redirect
+npm install @fidian/metalsmith-redirect
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ _metalsmith.json_
 ```json
 {
   "plugins": {
-    "metalsmith-redirect": {
+    "@fidian/metalsmith-redirect": {
       "redirections": {
         "/about": "/about-me",
         "/images": "/search?kind=image"
@@ -42,7 +42,7 @@ _metalsmith.json_
 
 ```javascript
 const metalsmith = require('metalsmith')
-const metalsmithRedirect = require('metalsmith-redirect')
+const metalsmithRedirect = require('@fidian/metalsmith-redirect')
 
 metalsmith(__dirname).use(
   metalsmithRedirect({
@@ -92,7 +92,7 @@ In this piece of code we create two redirections:
 
 ```javascript
 const metalsmith = require('metalsmith')
-const metalsmithRedirect = require('metalsmith-redirect')
+const metalsmithRedirect = require('@fidian/metalsmith-redirect')
 
 metalsmith(__dirname).use(
   metalsmithRedirect({
@@ -180,7 +180,7 @@ the plugin to do so:
 
 ```javascript
 const metalsmith = require('metalsmith')
-const metalsmithRedirect = require('metalsmith-redirect')
+const metalsmithRedirect = require('@fidian/metalsmith-redirect')
 
 metalsmith(__dirname).use(
   metalsmithRedirect({
@@ -219,7 +219,7 @@ configuration under the `config` key, this is how it is possible to instruct the
 
 ```javascript
 const metalsmith = require('metalsmith')
-const metalsmithRedirect = require('metalsmith-redirect')
+const metalsmithRedirect = require('@fidian/metalsmith-redirect')
 
 metalsmith(__dirname).use(
   metalsmithRedirect({
@@ -262,7 +262,7 @@ redirection (which cannot preserve the hashes due to its static nature).
 
 ```javascript
 const metalsmith = require('metalsmith')
-const metalsmithRedirect = require('metalsmith-redirect')
+const metalsmithRedirect = require('@fidian/metalsmith-redirect')
 
 metalsmith(__dirname).use(
   metalsmithRedirect({
@@ -285,7 +285,7 @@ when hash preservation is enabled.
 
 ```javascript
 const metalsmith = require('metalsmith')
-const metalsmithRedirect = require('metalsmith-redirect')
+const metalsmithRedirect = require('@fidian/metalsmith-redirect')
 
 metalsmith(__dirname).use(
   metalsmithRedirect({
@@ -309,7 +309,7 @@ redirection source.
 
 ```javascript
 const metalsmith = require('metalsmith')
-const metalsmithRedirect = require('metalsmith-redirect')
+const metalsmithRedirect = require('@fidian/metalsmith-redirect')
 
 metalsmith(__dirname).use(
   metalsmithRedirect({
@@ -329,7 +329,7 @@ Let's consider the following configuration:
 ```json
 {
   "plugins": {
-    "metalsmith-redirect": {
+    "@fidian/metalsmith-redirect": {
       "redirections": {
         "foo": "hidden.html",
         "/foo/bar.html": "/baz",
@@ -356,5 +356,5 @@ detected as the redirections have not been created by _metalsmith-redirect_
 yet. But if you `.use()` it after _metalsmith-redirect_, it will be able to
 consider the redirections, thus avoiding false positives. You can have a look
 at these [functional
-tests](https://github.com/aymericbeaumet/metalsmith-redirect/blob/master/test/metalsmith-broken-link-checker)
+tests](https://github.com/fidian/metalsmith-redirect/blob/master/test/metalsmith-broken-link-checker)
 to see how the order in which the plugins are registered matters.
