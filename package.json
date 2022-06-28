@@ -28,7 +28,7 @@
     "test": "xo && ava"
   },
   "dependencies": {
-    "lodash": "4.17.19"
+    "lodash": "4.17.21"
   },
   "devDependencies": {
     "ava": "3.8.2",
