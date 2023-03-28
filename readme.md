@@ -320,6 +320,13 @@ metalsmith(__dirname).use(
 
 </details>
 
+#### options.noindex
+
+Type: `boolean`
+Default: `true`
+
+Specify whether the page should be indexed by search engines. Note that if noindex is true, Google will not index the redirect and will generate a warning in Google Search Console. 
+
 ## FAQ
 
 ### Can you give some example of the redirection algorithm?

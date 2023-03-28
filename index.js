@@ -11,6 +11,7 @@ function escapeDoubleQuotes(string) {
 }
 
 module.exports = (options = {}) => {
+	const noindex = (typeof options.noindex === 'undefined') ? true : Boolean(options.noindex);
 	const preserveHash = options.preserveHash ?
 		{
 			timeout: 1,
@@ -34,7 +35,7 @@ module.exports = (options = {}) => {
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="robots" content="noindex">
+    ${noindex ? '<meta name="robots" content="noindex">' : ''}
     <meta http-equiv="refresh" content="${
 	preserveHash ? preserveHash.timeout : 0
 };url=${escapeDoubleQuotes(normalizedDestination)}">
